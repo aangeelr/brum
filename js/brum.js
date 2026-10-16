@@ -226,7 +226,7 @@
         H.tiempo.textContent = tVuelta(Math.min(t, C.nueva));
         H.kmh.textContent = f[2];
         H.dist.textContent = miles(f[1]);
-        H.marcha.textContent = f[5] || "N";
+        H.marcha.textContent = f[5] || (f[2] > 20 ? H.marcha.textContent : "N"); // 0 en mitad de un cambio: se queda la de antes
         H.rpm.textContent = miles(f[6]);
         ponDelta(deltaEn(f[1]));
         const s = f[1] < CORTES[0] ? 0 : f[1] < CORTES[1] ? 1 : 2;
@@ -335,7 +335,7 @@
       if (f !== fase) { fase = f; bc.dataset.fase = f; B.fase.textContent = FASES[f]; }
       B.t.textContent = tVuelta(t);
       B.kmh.textContent = miles(v(1));
-      B.marcha.textContent = a[5] || "N";
+      B.marcha.textContent = a[5] || (a[1] > 20 ? B.marcha.textContent : "N");
       B.glat.textContent = signo(glat); B.glon.textContent = signo(glon);
       B.freno.style.transform = `scaleY(${(fr / 100).toFixed(3)})`; B.frn.textContent = miles(fr);
       B.gas.style.transform = `scaleY(${(gas / 100).toFixed(3)})`; B.gasn.textContent = miles(gas);
