@@ -637,7 +637,9 @@
       for (const camino of [traza, linMejor]) {
         const largo = camino.getTotalLength();
         camino.style.strokeDasharray = `${largo} ${largo}`;
-        camino.animate([{ strokeDashoffset: largo }, { strokeDashoffset: 0 }], { duration: 1600, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "both" });
+        const anim = camino.animate([{ strokeDashoffset: largo }, { strokeDashoffset: 0 }], { duration: 1600, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "both" });
+        // Con el trazo que no escala, el largo del guion no cuadra con el de pantalla: al acabar, la línea entera
+        anim.onfinish = () => { camino.style.strokeDasharray = ""; anim.cancel(); };
       }
     };
     new IntersectionObserver((ents, obs) => { if (ents[0].isIntersecting) { obs.disconnect(); dibujar(); } }, { threshold: 0.3 }).observe(vu);
