@@ -493,6 +493,21 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .rafaga-texto .p { color: var(--pierde); }
 .rafaga-texto p { margin-top: 18px; max-width: 32ch; color: var(--tinta-2); }
 
+.rafaga-sec { grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; font-family: var(--f-num); }
+.rs { --c: var(--gana); --f: var(--campo-gana); position: relative; overflow: hidden; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 22px; background: var(--f); border-left: 6px solid var(--c); transform: skewX(-10deg); animation: golpe 3200ms var(--ease-out) infinite; animation-delay: calc(var(--i) * 170ms); }
+.rs.pierde { --c: var(--pierde); --f: var(--campo-pierde); }
+.rs small { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tinta-2); transform: skewX(10deg); }
+.rs b { font-size: clamp(34px, 4.2vw, 64px); font-weight: 700; line-height: 1; color: var(--c); transform: skewX(10deg); }
+.rs::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent); transform: translateX(-120%); animation: estela 3200ms var(--ease-out) infinite; animation-delay: calc(var(--i) * 170ms); }
+@keyframes golpe {
+  0% { opacity: 0; transform: translateX(-60px) skewX(-24deg); }
+  9% { opacity: 1; transform: translateX(8px) skewX(-8deg); }
+  14% { transform: translateX(0) skewX(-10deg); }
+  82% { opacity: 1; transform: translateX(0) skewX(-10deg); }
+  100% { opacity: 0.15; transform: translateX(0) skewX(-10deg); }
+}
+@keyframes estela { 0%, 4% { transform: translateX(-120%); } 22%, 100% { transform: translateX(260%); } }
+
 /* ---------- Marquesina ---------- */
 .marquesina { display: grid; gap: 6px; padding: 30px 0; overflow: hidden; background: var(--suelo-2); }
 .mq-pista { display: flex; gap: 56px; width: max-content; padding-right: 56px; animation: mq 60s linear infinite; }
@@ -760,7 +775,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .metro { margin-left: auto; }
   .inicio-abajo { grid-column: 1 / -1; grid-row: 2; flex-direction: row; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; }
   .inicio-ej { grid-column: 1 / -1; grid-row: 3; }
-  .rafaga-video, .rafaga-texto { grid-column: 1 / -1; grid-row: auto; }
+  .rafaga-video, .rafaga-texto, .rafaga-sec { grid-column: 1 / -1; grid-row: auto; }
   .rafaga-texto { background: none; padding: 0; }
   .prob-texto, .prob-lista, .intento-texto, .intento-fig, .inicio-hud, .prog-cab, .medallas, .tienda, .obras-texto, .versiones, .trabajo { grid-column: 1 / -1; }
   .versiones { grid-row: auto; }
@@ -796,6 +811,8 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .accion, .accion .boton { width: 100%; justify-content: center; }
   .hud-escena, .ej-escena { transform: none; }
   .rafaga-video { margin: 0 calc(-1 * var(--margen)); transform: none; border-radius: 0; }
+  .rafaga-sec { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .rs { padding: 12px 14px; }
   .rafaga-video video { height: 190px; object-fit: cover; object-position: 18% 50%; }
   .titular { font-size: 11vw; }
   .banco-panel { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 8px; padding: 10px; }
