@@ -1,0 +1,5 @@
+.impeccable/
+.taste-skill/
+.playwright-cli/
+assets/*.jpg
+__pycache__/
