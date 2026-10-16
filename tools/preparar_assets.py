@@ -13,6 +13,7 @@ import json
 import sqlite3
 import subprocess
 import tempfile
+from datetime import datetime
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -164,6 +165,12 @@ def datos():
     ).fetchall()
     sesiones = sorted({f[0] for f in filas})
     vueltas = [[sesiones.index(f[0]), f[1], round(f[2], 3)] for f in filas]
+    meses = ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+             "noviembre", "diciembre")
+    dias = []  # el día de cada tanda, en hora local
+    for ini in sesiones:
+        d = datetime.fromisoformat(ini).astimezone()
+        dias.append(f"{d.day} de {meses[d.month - 1]}")
 
     data = {
         "comparador": {
@@ -177,7 +184,7 @@ def datos():
         "banco": banco(),
         "progreso": {
             "sim": "Assetto Corsa EVO", "circuito": "Brands Hatch", "coche": "Mini John Cooper S",
-            "fechas": "9 y 10 de octubre de 2026", "vueltas": vueltas,
+            "fechas": "9 y 10 de octubre de 2026", "vueltas": vueltas, "dias": dias,
         },
     }
     (WEB / "js").mkdir(exist_ok=True)

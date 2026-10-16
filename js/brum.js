@@ -558,16 +558,17 @@
     const ns = "http://www.w3.org/2000/svg";
     const nuevo = (tag, at) => { const el = document.createElementNS(ns, tag); for (const k in at) el.setAttribute(k, at[k]); return el; };
     const caja = $("[data-vueltas-puntos]", vu);
-    // Tandas como bandas de tono
-    let ini = 0;
+    // Cada día, una banda con su fecha
+    const dia = (i) => (D.progreso.dias || [])[P[i][0]] || `Tanda ${P[i][0] + 1}`;
+    let ini = 0, nDia = 0;
     for (let i = 1; i <= n; i++) {
-      if (i === n || P[i][0] !== P[ini][0]) {
+      if (i === n || dia(i) !== dia(ini)) {
         const x0 = (X(ini) - (ini ? 47 / (n - 1) : 3)) * 10, x1 = (X(i - 1) + (i < n ? 47 / (n - 1) : 3)) * 10;
-        if (P[ini][0] % 2 === 0) svg.append(nuevo("rect", { class: "vs-tanda", x: x0, y: 0, width: x1 - x0, height: 360 }));
+        if (nDia++ % 2 === 0) svg.append(nuevo("rect", { class: "vs-tanda", x: x0, y: 0, width: x1 - x0, height: 360 }));
         const anchoPx = ((x1 - x0) / 1000) * caja.getBoundingClientRect().width;
         if (anchoPx >= 30) {
         const et = document.createElement("span"); et.className = "etq etq-tanda"; et.style.left = `calc(${x0 / 10}% + 6px)`;
-        et.textContent = innerWidth < 700 ? `T${P[ini][0] + 1}` : `Tanda ${P[ini][0] + 1}`;
+        et.textContent = innerWidth < 700 ? dia(ini).replace(" de octubre", "/10") : dia(ini);
         caja.append(et);
         }
         ini = i;
@@ -780,6 +781,67 @@
   if (ver) {
     $$("li", ver).forEach((li, i) => li.style.setProperty("--i", i));
     new IntersectionObserver((ents, obs) => { if (ents[0].isIntersecting) { obs.disconnect(); ver.classList.add("visto"); } }, { threshold: 0.4 }).observe(ver);
+  }
+
+  // ---------- Temas HUD de la Tienda: la web se pone sus colores ----------
+  // Colores de la app (src/brum/ui/tema.py): primario, secundario y fondo de tarjeta.
+  const TEMAS = {
+    theme_daytona: ["Daytona", "#2E5F8A", "#E07B39", "#14202B"],
+    theme_bathurst: ["Bathurst", "#6A2C91", "#17D7C4", "#180E22"],
+    theme_suzuka: ["Suzuka", "#C8102E", "#F2F0EC", "#241318"],
+    theme_racing_red: ["Racing Red", "#E63946", "#FFB703", "#1F1418"],
+    theme_endurance_blue: ["Endurance Blue", "#2E86FF", "#00D4FF", "#12181F"],
+    theme_le_mans_green: ["Le Mans", "#1C5DBF", "#FFC933", "#121826"],
+    theme_monza: ["Monza", "#0B8A3D", "#CE2B37", "#171310"],
+    theme_jarama: ["Jarama", "#F2C230", "#2A2A2E", "#1C1A14"],
+    theme_zandvoort: ["Zandvoort", "#F58220", "#0A2F5C", "#1A1005"],
+    theme_interlagos: ["Interlagos", "#009C3B", "#FFDF00", "#142006"],
+    theme_imola: ["Imola", "#7A1F2B", "#D4AF37", "#200E12"],
+    theme_silverstone: ["Silverstone", "#1B4D3E", "#C0C0C0", "#10201A"],
+    theme_nurburgring: ["Nürburgring", "#2F6E4B", "#B8C4BC", "#13201A"],
+    theme_sebring: ["Sebring", "#6B5B3E", "#5FAE85", "#1C1810"],
+    theme_carbon: ["Carbono", "#9AA5B1", "#E5E7EB", "#1A1D22"],
+    theme_monochrome: ["Monocromo", "#E6E8EB", "#9CA3AF", "#17191C"],
+    theme_indianapolis: ["Indianapolis", "#1A1A1A", "#F2F2F2", "#17171A"],
+  };
+  const luz = (hex) => {
+    const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  };
+  const filaTemas = $("[data-temas]");
+  if (filaTemas) {
+    const botones = [];
+    const ponTema = (id) => {
+      const t = TEMAS[id];
+      const r = raiz.style;
+      if (t) {
+        // Si el primario casi no se ve sobre el negro (Indianapolis), manda el secundario
+        const [acento, otro] = luz(t[1]) < 0.03 ? [t[2], t[1]] : [t[1], t[2]];
+        r.setProperty("--naranja", acento);
+        r.setProperty("--naranja-vivo", `color-mix(in oklab, ${acento} 80%, white)`);
+        r.setProperty("--acento-2", luz(otro) < 0.03 ? acento : otro);
+        r.setProperty("--suelo-2", t[3]);
+        r.setProperty("--sobre-acento", luz(acento) > 0.2 ? "#0B0B0B" : "#F3F4F6");
+      } else ["--naranja", "--naranja-vivo", "--acento-2", "--suelo-2", "--sobre-acento"].forEach((k) => r.removeProperty(k));
+      botones.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tema === (id || "brum"))));
+      try { id ? localStorage.setItem("brum-tema", id) : localStorage.removeItem("brum-tema"); } catch (e) { /* sin almacenamiento */ }
+    };
+    for (const [id, nombre] of [["brum", "Brum"], ...Object.entries(TEMAS).map(([k, t]) => [k, t[0]])]) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = id === "brum" ? "tema-b brum" : "tema-b";
+      b.dataset.tema = id;
+      b.title = nombre;
+      b.setAttribute("aria-label", id === "brum" ? "Colores de Brum" : `Tema ${nombre}`);
+      if (TEMAS[id]) { b.style.setProperty("--c1", TEMAS[id][1]); b.style.setProperty("--c2", TEMAS[id][2]); }
+      filaTemas.append(b);
+      botones.push(b);
+    }
+    botones.push(...$$(".ti-tema[data-tema]"));
+    botones.forEach((b) => b.addEventListener("click", () => ponTema(b.dataset.tema === "brum" || b.getAttribute("aria-pressed") === "true" && b.classList.contains("ti-tema") ? null : b.dataset.tema)));
+    let guardado = null;
+    try { guardado = localStorage.getItem("brum-tema"); } catch (e) { /* sin almacenamiento */ }
+    ponTema(TEMAS[guardado] ? guardado : null);
   }
 
   // ---------- Ráfaga: el vídeo solo corre a la vista ----------

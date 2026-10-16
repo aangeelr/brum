@@ -275,7 +275,7 @@
 <section class="prog" id="progresion" aria-labelledby="prog-t">
   <div class="prog-cab" data-revela>
     <h2 id="prog-t">Engancha. Y de eso se trata.</h2>
-    <p>Cuanto más entrenas, más se abre: licencia, medallas, racha y una Tienda donde gastar lo que ganas.</p>
+    <p>Aprender a pilotar frustra, y mucho. Por eso Brum es un juego: licencia, medallas, rachas y una Tienda donde gastar lo que ganas, para que el camino se haga más llevadero.</p>
   </div>
 
   <div class="lic" data-ui data-lic data-revela>
@@ -289,6 +289,28 @@
     </ol>
     <div class="lic-barra"><span data-lic-fill></span></div>
     <p class="lic-pie">Los ejercicios suman puntos de licencia. Quedarte sin estrellas resta.</p>
+  </div>
+
+  <div class="racha" data-ui data-racha data-revela>
+    <p class="lic-cab"><b>Racha</b><span>Días seguidos abriendo Brum</span></p>
+    <div class="racha-cuerpo">
+      <div>
+        <ol class="racha-dias">
+      <li style="--e:10;--p:50;--i:0"><span class="rb"><i class="rp"></i><i class="re"></i></span><b>60 $</b><small>Día 1</small></li>
+      <li style="--e:15;--p:55;--i:1"><span class="rb"><i class="rp"></i><i class="re"></i></span><b>70 $</b><small>Día 2</small></li>
+      <li style="--e:20;--p:60;--i:2"><span class="rb"><i class="rp"></i><i class="re"></i></span><b>80 $</b><small>Día 3</small></li>
+      <li style="--e:25;--p:65;--i:3"><span class="rb"><i class="rp"></i><i class="re"></i></span><b>90 $</b><small>Día 4</small></li>
+      <li style="--e:30;--p:70;--i:4"><span class="rb"><i class="rp"></i><i class="re"></i></span><b>100 $</b><small>Día 5+</small></li>
+        </ol>
+        <p class="racha-ley"><span><i class="re"></i>Entrar: de 10 a 30 $</span><span><i class="rp"></i>Salir a pista: de 50 a 70 $ más</span></p>
+      </div>
+      <div class="racha-lado">
+        <p class="racha-txt">Cada día seguido paga 5 $ más que el anterior, hasta el quinto: 100 $ al día si sales a pista.</p>
+        <p class="racha-hitos-t">Hitos</p>
+        <ol class="racha-hitos"><li>3</li><li>7</li><li>14</li><li>30</li><li>60</li><li>100</li><li>200</li><li>365</li></ol>
+        <p class="lic-pie">Un día sin entrar la rompe, salvo con Streak Protection (300 $ en la Tienda). Y hay dos rachas más: Clean Streak, intentos limpios seguidos, y Gold Streak, las dos a la vez.</p>
+      </div>
+    </div>
   </div>
 
   <div class="medallas" data-ui data-revela>
@@ -307,14 +329,18 @@
   <div class="tienda" data-ui data-revela>
     <p class="med-cab"><b>Tienda</b><span>Con el dinero que dan los ejercicios y la racha</span></p>
     <div class="tienda-fila" data-tienda>
-      <div class="ti ti-tema"><small>Tema HUD</small><b>Daytona</b><span>Azul acero y naranja quemado</span></div>
-      <div class="ti ti-tema t2"><small>Tema HUD</small><b>Bathurst</b><span>Púrpura y cian</span></div>
+      <button type="button" class="ti ti-tema" data-tema="theme_daytona" aria-pressed="false"><small>Tema HUD</small><b>Daytona</b><span>Azul acero y naranja quemado</span></button>
+      <button type="button" class="ti ti-tema t2" data-tema="theme_bathurst" aria-pressed="false"><small>Tema HUD</small><b>Bathurst</b><span>Púrpura y cian</span></button>
       <div class="ti"><small>Boost</small><b>Training Boost</b><span>+50 % de XP la próxima sesión</span></div>
       <div class="ti"><small>Boost</small><b>$ Boost</b><span>+50 % de $ la próxima sesión</span></div>
       <div class="ti"><small>Modificador</small><b>No HUD</b><span>Repites el reto sin HUD de apoyo: más XP</span></div>
       <div class="ti"><small>Modificador</small><b>Hard Mode</b><span>Te exige Oro: más XP si lo consigues</span></div>
       <div class="ti"><small>Título</small><b>Telemetry Nerd</b><span>Para lucir en tu perfil</span></div>
-      <div class="ti ti-tema t3"><small>Tema HUD</small><b>Suzuka</b><span>Rojo y blanco</span></div>
+      <button type="button" class="ti ti-tema t3" data-tema="theme_suzuka" aria-pressed="false"><small>Tema HUD</small><b>Suzuka</b><span>Carmesí y blanco</span></button>
+    </div>
+    <div class="temas">
+      <p><b>Pruébalos aquí:</b> pulsa un tema y esta web se pone sus colores.</p>
+      <div class="temas-fila" data-temas></div>
     </div>
   </div>
 </section>
@@ -427,7 +453,7 @@
   <div class="mejora-in">
     <div class="mejora-texto" data-revela>
       <h2 id="mejora-t">Mejorar no es una línea recta.</h2>
-      <p class="frase">La progresión real se parece a esto: vueltas que salen mejor, otras que salen peor y una mejor vuelta que va bajando poco a poco. No te frustres con las rojas: ahí está lo siguiente que aprender.</p>
+      <p class="frase">La progresión real se parece a esto: días en los que todo sale y días en los que no bates tu mejor vuelta por mucho que lo intentes. Aquí, un día baja a 1:00.804; al siguiente, cada tanda se acerca un poco más (1:01.665, 1:01.614, 1:01.029) sin llegar. Hay días así. Por eso Brum premia la racha: lo que cuenta es volver.</p>
     </div>
     <div class="vueltas" data-ui data-vueltas>
       <div class="vueltas-lectura" aria-live="polite">
