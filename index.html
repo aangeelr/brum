@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Brum · Aprende a pilotar, ejercicio a ejercicio.">
+<meta property="og:title" content="Brum · ¿Solo te salen trompos? Empieza por aquí.">
 <meta property="og:description" content="Academia de sim racing en tu PC: ejercicios, medallas y telemetría. Gratis para Windows.">
 <meta property="og:url" content="https://aangeelr.github.io/brum/">
 <meta property="og:image" content="https://aangeelr.github.io/brum/assets/img/redes.jpg">
@@ -53,11 +53,11 @@
 <section class="inicio" id="inicio">
   <div class="inicio-texto">
     <h1 class="titular">
-      <span class="linea"><span>Aprende a pilotar,</span></span>
-      <span class="linea"><span>ejercicio a ejercicio.</span></span>
+      <span class="linea"><span>¿Solo te salen trompos?</span></span>
+      <span class="linea"><span>Empieza por aquí.</span></span>
     </h1>
     <div class="inicio-abajo">
-      <p class="entrada">¿Solo te salen trompos? Normal. Brum es una academia de sim racing en tu PC: ejercicios cortos que te dicen qué hacer en pista y te corrigen con tu telemetría.</p>
+      <p class="entrada">Brum es una academia de sim racing en tu PC: ejercicios cortos que te dicen qué hacer en pista, te corrigen con tu telemetría y te dan Bronce, Plata u Oro.</p>
       <div class="accion">
         <a class="boton" href="https://github.com/aangeelr/brum/releases/latest/download/Brum-instalador.exe">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16" /></svg>
@@ -68,30 +68,51 @@
     </div>
   </div>
 
-  <figure class="inicio-ej">
-    <div class="ej-escena" data-tilt>
-      <img class="ej-fondo" src="assets/capturas/ejercicio-ficha-1600.webp" width="1600" height="814" alt="" aria-hidden="true" fetchpriority="high">
-      <div class="ej" data-ui data-ej role="img" aria-label="Ejemplo de tres intentos del ejercicio Track Limits: sin medalla, Plata y Oro, según las vueltas invalidadas.">
-        <div class="ej-cab" aria-hidden="true">
-          <span class="nivel nivel-1">Fundamentos</span>
-          <b>Track Limits</b><span class="ej-vueltas">8 vueltas</span>
+  <figure class="inicio-ej inicio-hud">
+    <div class="hud-escena" data-tilt>
+      <img class="hud-fondo" src="assets/capturas/envivo-1600.webp" width="1600" height="814" alt="" aria-hidden="true" fetchpriority="high">
+      <div class="hud" data-ui data-hud role="img" aria-label="Reproducción de una vuelta real en Oulton Park: el delta, los sectores, los pedales y la velocidad cambian como en la pantalla En vivo de Brum.">
+        <div class="hud-cab" aria-hidden="true">
+          <span class="hud-titulo">En vivo</span>
+          <span class="hud-grab"><i></i>Assetto Corsa EVO · Oulton Park · MX-5 ND Cup</span>
         </div>
-        <p class="ej-obj" aria-hidden="true"><b>Objetivo:</b> 8 vueltas seguidas con como mucho una invalidada por salida de pista.</p>
-        <div class="ej-medallas" aria-hidden="true">
-          <div class="med med-oro" data-med="3"><i>★★★</i><b>Oro</b><span>hasta 1 fuera</span></div>
-          <div class="med med-plata" data-med="2"><i>★★</i><b>Plata</b><span>hasta 2</span></div>
-          <div class="med med-bronce" data-med="1"><i>★</i><b>Bronce</b><span>hasta 3</span></div>
+        <div class="hud-delta" aria-hidden="true">
+          <div class="hud-delta-cab"><b>Delta</b> vs vuelta anterior 1:15.777 <span class="hud-delta-n" data-hud-delta>±0.000</span></div>
+          <div class="hud-barra"><span class="hud-barra-0"></span><span class="hud-barra-f" data-hud-barra></span></div>
+          <div class="hud-escala"><span>+1.5</span><span>+1</span><span>+0.5</span><span>0</span><span>−0.5</span><span>−1</span><span>−1.5</span></div>
         </div>
-        <div class="ej-intento" aria-hidden="true">
-          <div class="ej-intento-cab"><b data-ej-n>Intento 1</b><span>Invalidadas <b data-ej-inv>0</b></span></div>
-          <ol class="ej-chips" data-ej-chips>
-            <li>V1</li><li>V2</li><li>V3</li><li>V4</li><li>V5</li><li>V6</li><li>V7</li><li>V8</li>
-          </ol>
+        <div class="hud-cuerpo" aria-hidden="true">
+          <div class="hud-izq">
+            <div class="hud-fila">
+              <div class="hud-caja hud-vuelta"><small>Vuelta</small><b>2</b></div>
+              <div class="hud-caja hud-tiempo"><small>Tiempo vuelta</small><b data-hud-tiempo>0:00.000</b></div>
+            </div>
+            <div class="hud-sectores">
+              <div class="hud-sec" data-sec="0"><small>S1 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
+              <div class="hud-sec" data-sec="1"><small>S2 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
+              <div class="hud-sec" data-sec="2"><small>S3 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
+              <div class="hud-sec hud-total" data-total><small>Total</small><b data-d>—</b><em data-t></em></div>
+            </div>
+            <div class="hud-fila hud-ult">
+              <div class="hud-caja" data-ultima><small>Última</small><b data-v>—</b></div>
+              <div class="hud-caja"><small>Anterior</small><b>1:15.777</b></div>
+              <div class="hud-caja" data-mejor><small>Mejor</small><b data-v>1:15.777</b></div>
+            </div>
+          </div>
+          <div class="hud-der">
+            <div class="hud-graf"><small>Pedales</small><canvas data-hud-pedales width="420" height="150"></canvas></div>
+            <div class="hud-graf"><small>Velocidad · km/h <b data-hud-kmh>0</b></small><canvas data-hud-vel width="420" height="150"></canvas></div>
+          </div>
         </div>
-        <p class="ej-res" data-ej-res aria-hidden="true">Conduciendo…</p>
+        <div class="hud-pie" aria-hidden="true">
+          <span>Distancia <b data-hud-dist>0</b> m</span>
+          <span>Marcha <b data-hud-marcha>3</b></span>
+          <span>RPM <b data-hud-rpm>0</b></span>
+        </div>
+        <div class="hud-meta" data-hud-meta aria-hidden="true"><span>Nueva mejor vuelta</span><b>1:14.847</b><em>−0.926</em></div>
       </div>
     </div>
-    <figcaption>Intentos de ejemplo con las reglas reales de Track Limits, uno de los ejercicios de Fundamentos.</figcaption>
+    <figcaption>Una vuelta real en Oulton Park con el MX-5 ND Cup contra la anterior, reproducida a triple velocidad.</figcaption>
   </figure>
 </section>
 
@@ -150,6 +171,39 @@
   </article>
 </section>
 
+<!-- ===================== UN INTENTO ===================== -->
+<section class="intento" aria-labelledby="intento-t">
+  <div class="intento-texto" data-revela>
+    <h2 id="intento-t">Así se gana una medalla.</h2>
+    <p>Cada ejercicio te dice qué hacer y cuántos fallos se permiten para el Bronce, la Plata o el Oro. Lo intentas, Brum mira tu telemetría vuelta a vuelta y te dice dónde fallaste. Y repites.</p>
+  </div>
+  <figure class="intento-fig">
+    <div class="ej-escena">
+      <img class="ej-fondo" src="assets/capturas/ejercicio-ficha-1600.webp" width="1600" height="814" alt="" aria-hidden="true" loading="lazy">
+      <div class="ej" data-ui data-ej role="img" aria-label="Ejemplo de tres intentos del ejercicio Track Limits: sin medalla, Plata y Oro, según las vueltas invalidadas.">
+        <div class="ej-cab" aria-hidden="true">
+          <span class="nivel nivel-1">Fundamentos</span>
+          <b>Track Limits</b><span class="ej-vueltas">8 vueltas</span>
+        </div>
+        <p class="ej-obj" aria-hidden="true"><b>Objetivo:</b> 8 vueltas seguidas con como mucho una invalidada por salida de pista.</p>
+        <div class="ej-medallas" aria-hidden="true">
+          <div class="med med-oro" data-med="3"><i>★★★</i><b>Oro</b><span>hasta 1 fuera</span></div>
+          <div class="med med-plata" data-med="2"><i>★★</i><b>Plata</b><span>hasta 2</span></div>
+          <div class="med med-bronce" data-med="1"><i>★</i><b>Bronce</b><span>hasta 3</span></div>
+        </div>
+        <div class="ej-intento" aria-hidden="true">
+          <div class="ej-intento-cab"><b data-ej-n>Intento 1</b><span>Invalidadas <b data-ej-inv>0</b></span></div>
+          <ol class="ej-chips" data-ej-chips>
+            <li>V1</li><li>V2</li><li>V3</li><li>V4</li><li>V5</li><li>V6</li><li>V7</li><li>V8</li>
+          </ol>
+        </div>
+        <p class="ej-res" data-ej-res aria-hidden="true">Conduciendo…</p>
+      </div>
+    </div>
+    <figcaption>Intentos de ejemplo con las reglas reales de Track Limits, uno de los ejercicios de Fundamentos.</figcaption>
+  </figure>
+</section>
+
 <!-- ===================== NIVELES ===================== -->
 <section class="niveles" id="niveles" data-niveles aria-labelledby="niv-t">
   <div class="niveles-cab" data-revela>
@@ -185,11 +239,11 @@
 </section>
 
 <!-- ===================== CÓMO ===================== -->
-<section class="como" id="como" data-etapas data-etapa="0" aria-labelledby="como-t">
+<section class="como" id="como" data-etapas data-etapa="1" aria-labelledby="como-t">
   <h2 class="vh" id="como-t">Cómo funciona un ejercicio</h2>
   <div class="como-campo como-texto">
     <div class="etapa-t" data-et="0"><h3>Lee la ficha.</h3><p>Qué hacer en el simulador, paso a paso, y qué pide el Oro, la Plata y el Bronce. Antes de salir, no después.</p></div>
-    <div class="etapa-t" data-et="1"><h3>Conduce.</h3><p>Con «Conducirlo ahora», Brum graba y empieza a contar las vueltas cuando le dices que estás en posición.</p></div>
+    <div class="etapa-t" data-et="1"><h3>Conduce.</h3><p>Con «Conducirlo ahora», Brum graba y empieza a contar las vueltas cuando le dices que estás en posición. O, con «Usar vueltas que ya tengo», puntúa vueltas que ya grabaste.</p></div>
     <div class="etapa-t" data-et="2"><h3>Brum te corrige.</h3><p>Lee tu telemetría y te dice qué ha fallado y en qué vuelta: aquí, cuántas veces pisaste gas y freno a la vez.</p></div>
     <div class="etapa-t" data-et="3"><h3>Medalla, y a por otra.</h3><p>Cada ejercicio da XP, dinero de la app y puntos de licencia. Con la XP se abren los niveles siguientes.</p></div>
   </div>
@@ -206,7 +260,7 @@
   <div class="como-control">
     <label class="rango rango-etapas">
       <span class="vh">Paso</span>
-      <input type="range" min="0" max="3" step="1" value="0" data-etapas-rango aria-valuetext="Ficha">
+      <input type="range" min="0" max="3" step="1" value="1" data-etapas-rango aria-valuetext="Conduce">
     </label>
     <div class="etapas-nombres">
       <button type="button" data-ir="0">Ficha</button>
@@ -265,65 +319,11 @@
   </div>
 </section>
 
-<!-- ===================== TELEMETRÍA ===================== -->
-<section class="tele" id="telemetria" aria-labelledby="tele-t">
-  <div class="tele-texto" data-revela>
-    <h2 id="tele-t">Y cuando quieras mirar más a fondo.</h2>
-    <p>Debajo de los ejercicios hay telemetría de verdad. Mientras conduces, En vivo te enseña el delta, los sectores, los pedales y la velocidad.</p>
-  </div>
-  <figure class="hud-figura">
-    <div class="hud-escena" data-tilt-hud>
-      <img class="hud-fondo" src="assets/capturas/envivo-1600.webp" width="1600" height="814" alt="" aria-hidden="true" loading="lazy">
-      <div class="hud" data-ui data-hud role="img" aria-label="Reproducción de una vuelta real en Oulton Park: el delta, los sectores, los pedales y la velocidad cambian como en la pantalla En vivo de Brum.">
-        <div class="hud-cab" aria-hidden="true">
-          <span class="hud-titulo">En vivo</span>
-          <span class="hud-grab"><i></i>Assetto Corsa EVO · Oulton Park · MX-5 ND Cup</span>
-        </div>
-        <div class="hud-delta" aria-hidden="true">
-          <div class="hud-delta-cab"><b>Delta</b> vs vuelta anterior 1:15.777 <span class="hud-delta-n" data-hud-delta>±0.000</span></div>
-          <div class="hud-barra"><span class="hud-barra-0"></span><span class="hud-barra-f" data-hud-barra></span></div>
-          <div class="hud-escala"><span>+1.5</span><span>+1</span><span>+0.5</span><span>0</span><span>−0.5</span><span>−1</span><span>−1.5</span></div>
-        </div>
-        <div class="hud-cuerpo" aria-hidden="true">
-          <div class="hud-izq">
-            <div class="hud-fila">
-              <div class="hud-caja hud-vuelta"><small>Vuelta</small><b>2</b></div>
-              <div class="hud-caja hud-tiempo"><small>Tiempo vuelta</small><b data-hud-tiempo>0:00.000</b></div>
-            </div>
-            <div class="hud-sectores">
-              <div class="hud-sec" data-sec="0"><small>S1 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
-              <div class="hud-sec" data-sec="1"><small>S2 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
-              <div class="hud-sec" data-sec="2"><small>S3 <i data-ref></i></small><b data-d>—</b><em data-t></em><span class="hud-sec-p"><span data-p></span></span></div>
-              <div class="hud-sec hud-total" data-total><small>Total</small><b data-d>—</b><em data-t></em></div>
-            </div>
-            <div class="hud-fila hud-ult">
-              <div class="hud-caja" data-ultima><small>Última</small><b data-v>—</b></div>
-              <div class="hud-caja"><small>Anterior</small><b>1:15.777</b></div>
-              <div class="hud-caja" data-mejor><small>Mejor</small><b data-v>1:15.777</b></div>
-            </div>
-          </div>
-          <div class="hud-der">
-            <div class="hud-graf"><small>Pedales</small><canvas data-hud-pedales width="420" height="150"></canvas></div>
-            <div class="hud-graf"><small>Velocidad · km/h <b data-hud-kmh>0</b></small><canvas data-hud-vel width="420" height="150"></canvas></div>
-          </div>
-        </div>
-        <div class="hud-pie" aria-hidden="true">
-          <span>Distancia <b data-hud-dist>0</b> m</span>
-          <span>Marcha <b data-hud-marcha>3</b></span>
-          <span>RPM <b data-hud-rpm>0</b></span>
-        </div>
-        <div class="hud-meta" data-hud-meta aria-hidden="true"><span>Nueva mejor vuelta</span><b>1:14.847</b><em>−0.926</em></div>
-      </div>
-    </div>
-    <figcaption>Una vuelta real en Oulton Park con el MX-5 ND Cup contra la anterior, reproducida a triple velocidad.</figcaption>
-  </figure>
-</section>
-
 <!-- ===================== BANCO DE DATOS ===================== -->
-<section class="banco" id="datos" aria-labelledby="banco-t">
+<section class="banco" id="telemetria" aria-labelledby="banco-t">
   <div class="banco-texto" data-revela>
     <h2 id="banco-t">Todo lo que hace el coche, grabado.</h2>
-    <p>Fuerzas G, pedales, volante, temperatura y presión de cada neumático, frenos y suspensión. Esto es una vuelta real, a velocidad real: arrastra la barra de abajo para ir a cualquier punto.</p>
+    <p>Debajo de los ejercicios hay telemetría de verdad: fuerzas G, pedales, volante, temperatura y presión de cada neumático, frenos y suspensión. Esto es una vuelta real, a velocidad real: arrastra la barra de abajo para ir a cualquier punto.</p>
   </div>
   <figure class="banco-fig">
     <div class="banco-panel" data-ui data-banco>

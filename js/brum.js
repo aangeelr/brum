@@ -533,15 +533,15 @@
       rango.value = n;
       rango.parentElement.style.setProperty("--p", (n / 3).toFixed(3));
       rango.setAttribute("aria-valuetext", nombres[n].textContent);
-      if (video) reproduce(video, n === 0 && enVista);
+      if (video) reproduce(video, n === 1 && enVista);
     }
     rango.addEventListener("input", () => ve(Number(rango.value)));
     nombres.forEach((b, i) => b.addEventListener("click", () => ve(i)));
     new IntersectionObserver((ents) => {
       enVista = ents[0].isIntersecting;
-      if (video) { if (enVista) video.preload = "auto"; reproduce(video, enVista && Number(et.dataset.etapa) === 0); }
+      if (video) { if (enVista) video.preload = "auto"; reproduce(video, enVista && Number(et.dataset.etapa) === 1); }
     }, { threshold: 0.35 }).observe(et);
-    ve(0);
+    ve(1); // Se abre en Conduce: la telemetría en directo, moviéndose
   }
 
   // ---------- Mejora: 32 vueltas reales ----------

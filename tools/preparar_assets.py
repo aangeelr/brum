@@ -109,8 +109,8 @@ def imagen_redes(logo):
         negra = fuentes / "segoeuib.ttf"
     f1 = ImageFont.truetype(str(negra), 60)
     f2 = ImageFont.truetype(str(fuentes / "bahnschrift.ttf"), 30)
-    d.text((64, 230), "Aprende a pilotar,", font=f1, fill="#F3F4F6")
-    d.text((64, 302), "ejercicio a ejercicio.", font=f1, fill="#FF5A00")
+    d.text((64, 230), "¿Solo te salen trompos?", font=f1, fill="#F3F4F6")
+    d.text((64, 302), "Empieza por aquí.", font=f1, fill="#FF5A00")
     d.text((64, 448), "Academia de sim racing · Ejercicios · Telemetría", font=f2, fill="#D1D5DB")
     d.text((64, 492), "Gratis para Windows · en desarrollo", font=f2, fill="#2ECC71")
     sect = Image.open(OUT / "capturas" / "envivo-sectores-735.webp").convert("RGB")

@@ -257,7 +257,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 
 /* ---------- Cómo ---------- */
 .como { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 88svh; }
-.como-campo { position: relative; display: grid; }
+.como-campo { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); }
 .como-texto { background: var(--suelo-2); padding: clamp(64px, 9vw, 120px) var(--margen) 180px; }
 .como-media { background: var(--sup); place-items: center start; padding: clamp(48px, 6vw, 96px) clamp(24px, 4vw, 64px) 180px; perspective: 1600px; overflow: hidden; }
 .etapa-t, .etapa-m { grid-area: 1 / 1; transition: opacity 260ms ease, filter 260ms ease, transform 420ms var(--ease-out); }
@@ -435,7 +435,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 
 /* ---------- Inicio: el ejercicio ---------- */
 .inicio-ej { grid-column: 6 / -1; grid-row: 2; perspective: 1800px; margin: 0; }
-.inicio-ej figcaption, .hud-figura figcaption { position: relative; z-index: 2; margin-top: 22px; font-size: var(--t-5); color: var(--apagado); max-width: 58ch; }
+.inicio-ej figcaption, .intento-fig figcaption { position: relative; z-index: 2; margin-top: 22px; font-size: var(--t-5); color: var(--apagado); max-width: 58ch; }
 .ej-escena { position: relative; transform-style: preserve-3d; transform: rotateY(var(--ry, -7deg)) rotateX(var(--rx, 4deg)); will-change: transform; }
 .ej-fondo { position: absolute; width: 88%; right: -7%; top: -12%; transform: translateZ(-160px); filter: brightness(0.36) saturate(0.7) blur(1.5px); border-radius: 12px; pointer-events: none; }
 .ej {
@@ -498,7 +498,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 /* ---------- Qué te pasa ---------- */
 .prob { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 36px; padding: var(--hueco) var(--margen); }
 .prob-texto { grid-column: 1 / 7; }
-.prob-texto p, .niveles-cab p, .prog-cab p, .tele-texto p, .banco-texto p, .pest-cab p, .obras-texto > p:first-of-type { margin-top: 22px; font-size: var(--t-3); line-height: 1.35; max-width: 34ch; }
+.prob-texto p, .niveles-cab p, .prog-cab p, .intento-texto p, .banco-texto p, .pest-cab p, .obras-texto > p:first-of-type { margin-top: 22px; font-size: var(--t-3); line-height: 1.35; max-width: 34ch; }
 .prob-lista { grid-column: 1 / 7; display: flex; flex-wrap: wrap; gap: 10px; align-content: start; }
 .prob-b { border: 0; background: var(--sup); padding: 14px 18px; font-size: 17px; font-weight: 600; text-align: left; cursor: pointer; transition: background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
 .prob-b:active { transform: scale(0.97); }
@@ -580,9 +580,11 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .ti-tema::after { background: var(--c2); right: 14px; }
 
 /* ---------- Telemetría ---------- */
-.tele { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; padding: var(--hueco) var(--margen) clamp(64px, 8vw, 120px); }
-.tele-texto { grid-column: 1 / 5; align-self: center; }
-.hud-figura { grid-column: 5 / -1; margin: 0; perspective: 1800px; }
+.inicio-hud { grid-column: 5 / -1; }
+.intento { overflow: clip; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 48px; padding: 0 var(--margen) var(--hueco); }
+.intento-texto { grid-column: 1 / 6; align-self: center; }
+.intento-texto h2 { font-size: clamp(34px, 3.6vw, 58px); }
+.intento-fig { grid-column: 6 / -1; margin: 0; perspective: 1800px; }
 
 /* ---------- Simuladores: lo que viene ---------- */
 .ficha-proximo { grid-column: span 2; aspect-ratio: auto; min-height: 220px; background: #19142B; }
@@ -720,7 +722,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .inicio-ej { grid-column: 1 / -1; grid-row: 3; }
   .rafaga-video, .rafaga-texto { grid-column: 1 / -1; grid-row: auto; }
   .rafaga-texto { background: none; padding: 0; }
-  .prob-texto, .prob-lista, .tele-texto, .hud-figura, .prog-cab, .medallas, .tienda, .obras-texto, .versiones, .trabajo { grid-column: 1 / -1; }
+  .prob-texto, .prob-lista, .intento-texto, .intento-fig, .inicio-hud, .prog-cab, .medallas, .tienda, .obras-texto, .versiones, .trabajo { grid-column: 1 / -1; }
   .versiones { grid-row: auto; }
   .inicio-ej { grid-column: 1 / -1; }
   .banco-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 0.7fr); grid-template-areas: "cab cab" "coche coche" "gg mandos" "linea linea"; }
@@ -788,8 +790,8 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .prob-b { font-size: 16px; padding: 12px 14px; }
   .ficha-ej h3 { font-size: 34px; }
   .ficha-ej dd { font-size: 17px; }
-  .niv { grid-template-columns: 1fr; min-height: 0; top: calc(var(--barra) + 12px + var(--i) * 14px); }
-  .niv h3 { font-size: 13vw; }
+  .niv { grid-template-columns: minmax(0, 1fr); min-height: 0; top: calc(var(--barra) + 12px + var(--i) * 14px); }
+  .niv h3 { font-size: 9.4vw; }
   .lic-esc { gap: 4px; }
   .lic-esc li { padding: 10px 2px; }
   .lic-esc li b { font-size: 18px; }
