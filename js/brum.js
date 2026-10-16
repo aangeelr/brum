@@ -5,6 +5,17 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const menosMov = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const raiz = document.documentElement;
+  const quieto = () => raiz.classList.contains("quieto");
+  const reproduce = (v, si) => { v.dataset.toca = si ? "1" : "0"; if (si && !quieto()) v.play().catch(() => {}); else v.pause(); };
+  const pausa = $("[data-pausa]");
+  if (pausa) pausa.addEventListener("click", () => {
+    const q = raiz.classList.toggle("quieto");
+    const txt = q ? "Seguir con las animaciones" : "Pausar animaciones";
+    pausa.setAttribute("aria-pressed", String(q)); pausa.setAttribute("aria-label", txt); pausa.title = txt;
+    $$("video").forEach((v) => reproduce(v, v.dataset.toca === "1"));
+    document.dispatchEvent(new Event("brum:sigue"));
+  });
   const MENOS = "−";
 
   const miles = (n) => String(Math.round(n));
@@ -78,6 +89,7 @@
     barra.metro.classList.toggle("gana", d < -0.0005);
     barra.metro.classList.toggle("pierde", d > 0.0005);
     paralaje();
+    apila();
   }
   addEventListener("scroll", () => { if (!pedidoScroll) { pedidoScroll = true; requestAnimationFrame(alScroll); } }, { passive: true });
   addEventListener("resize", () => requestAnimationFrame(alScroll));
@@ -116,7 +128,7 @@
     ajustaLienzos();
     addEventListener("resize", ajustaLienzos);
 
-    const VENTANA = 10;
+    const VENTANA = 6;
     function dibuja(idx) {
       const t = VT[idx];
       const desde = t - VENTANA;
@@ -172,7 +184,7 @@
         $("[data-d]", el).textContent = tDelta(S.delta, 2);
         $("[data-t]", el).textContent = S.tNueva.toFixed(3);
         p.style.transform = "scaleX(1)";
-        if (!menosMov) { el.classList.remove("salta"); void el.offsetWidth; el.classList.add("salta"); }
+        el.classList.remove("salta"); void el.offsetWidth; el.classList.add("salta");
         return;
       }
       el.classList.add("vivo");
@@ -203,7 +215,7 @@
     }
     function cuadro(ahora) {
       rafHud = 0;
-      if (!visible || document.hidden) return;
+      if (!visible || document.hidden || quieto()) return;
       if (enMeta) {
         if (ahora >= metaHasta) reinicia(ahora);
       } else {
@@ -226,24 +238,16 @@
         $("[data-d]", H.secs[s]).textContent = (Math.min(t, C.nueva) - (s ? tEnMetro(CORTES[s - 1]) : 0)).toFixed(1);
         $("[data-p]", H.secs[s]).style.transform = `scaleX(${limita((f[1] - ini) / (CORTES[s] - ini), 0, 1)})`;
         dibuja(idx);
-        if (idx >= VT.length - 1) { meta(); metaHasta = ahora + 3200; }
+        if (idx >= VT.length - 1) { meta(); metaHasta = ahora + 2400; }
       }
       rafHud = requestAnimationFrame(cuadro);
     }
-    function arranca() { if (!rafHud && visible && !document.hidden) { if (!enMeta) t0 = performance.now() - (tVivo * 1000) / VEL; rafHud = requestAnimationFrame(cuadro); } }
+    function arranca() { if (!rafHud && visible && !document.hidden && !quieto()) { if (!enMeta) t0 = performance.now() - (tVivo * 1000) / VEL; rafHud = requestAnimationFrame(cuadro); } }
 
-    if (menosMov) {
-      reinicia(0);
-      [0, 1].forEach((i) => sector(i, "hecho"));
-      idx = VT.length - 1;
-      dibuja(idx);
-      H.kmh.textContent = V[idx][2]; H.dist.textContent = miles(V[idx][1]); H.marcha.textContent = V[idx][5]; H.rpm.textContent = miles(V[idx][6]);
-      meta();
-    } else {
-      reinicia(performance.now(), Math.max(0, SECT[0].tNueva - 2.5));
-      new IntersectionObserver((ents) => { visible = ents[0].isIntersecting; if (visible) arranca(); }, { threshold: 0.1 }).observe(hud);
-      document.addEventListener("visibilitychange", arranca);
-    }
+    reinicia(performance.now(), Math.max(0, SECT[0].tNueva - 2.5));
+    new IntersectionObserver((ents) => { visible = ents[0].isIntersecting; if (visible) arranca(); }, { threshold: 0.1 }).observe(hud);
+    document.addEventListener("visibilitychange", arranca);
+    document.addEventListener("brum:sigue", arranca);
 
     // Inclinación con el ratón, con inercia
     const escena = $("[data-tilt]");
@@ -261,6 +265,139 @@
         if (!rafT) rafT = requestAnimationFrame(mueve);
       }, { passive: true });
     }
+  }
+
+  // ---------- Banco de datos: la vuelta de 1:14.847 con todos sus canales ----------
+  const bc = $("[data-banco]");
+  if (bc && D.banco) {
+    // [t, km/h, gas %, freno %, volante x100, marcha, G lateral, G longitudinal, freno °C x4, suspensión mm x4]
+    const M = D.banco.muestras, NE = D.banco.neumaticos;
+    const T = M.map((f) => f[0]);
+    const FIN = T[T.length - 1];
+    const B = {
+      fase: $("[data-bc-fase]", bc), t: $("[data-bc-t]", bc), kmh: $("[data-bc-kmh]", bc), marcha: $("[data-bc-marcha]", bc),
+      glat: $("[data-bc-glat]", bc), glon: $("[data-bc-glon]", bc), freno: $("[data-bc-freno]", bc), frn: $("[data-bc-frn]", bc),
+      gas: $("[data-bc-gas]", bc), gasn: $("[data-bc-gasn]", bc), vol: $("[data-bc-vol]", bc), cursor: $("[data-bc-cursor]", bc),
+      rango: $("[data-bc-rango]", bc), play: $("[data-bc-play]", bc), discos: $$("[data-disco]", bc),
+      ruedas: $$("[data-rueda]", bc).map((r) => ({ tt: $("[data-tt]", r), tp: $("[data-tp]", r), bt: $("[data-bt]", r), fr: $(".bc-fr", r), su: $("[data-su]", r) })),
+    };
+    B.rango.max = FIN.toFixed(1);
+    const FASES = { frena: "Frenando", curva: "En curva", fondo: "A fondo", rueda: "Rodando" };
+    const gg = $("[data-bc-gg]", bc), pista = $("[data-bc-vel]", bc), nube = document.createElement("canvas");
+    const cg = gg.getContext("2d");
+    const GMAX = 2.2;
+    let ggW = 0, pW = 0;
+    const signo = (x, d = 2) => (Number(x.toFixed(d)) < 0 ? MENOS : "") + Math.abs(x).toFixed(d);
+
+    function ajusta() {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      ggW = gg.getBoundingClientRect().width || 300;
+      for (const cv of [gg, nube]) cv.width = cv.height = Math.round(ggW * dpr);
+      cg.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Fondo del GG: ejes, 1 G y 2 G, y la nube de puntos de toda la vuelta
+      const c = nube.getContext("2d");
+      c.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const m = ggW / 2, k = (m - 10) / GMAX;
+      c.strokeStyle = "#2A2D33"; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(m, 4); c.lineTo(m, ggW - 4); c.moveTo(4, m); c.lineTo(ggW - 4, m); c.stroke();
+      for (const g of [1, 2]) { c.beginPath(); c.arc(m, m, g * k, 0, Math.PI * 2); c.stroke(); }
+      c.fillStyle = "rgba(255, 159, 67, 0.3)";
+      for (const f of M) c.fillRect(m + f[6] * k - 1, m - f[7] * k - 1, 2, 2);
+      c.fillStyle = "#6B7280"; c.font = "11px Bahnschrift, Barlow, sans-serif";
+      c.fillText("1 G", m + 5, m - k - 5); c.fillText("2 G", m + 5, m - 2 * k - 5);
+      c.fillText("Acelera", 6, 14); c.fillText("Frena", 6, ggW - 6);
+      // La vuelta entera debajo de la barra: velocidad, frenadas en rojo y gas a fondo en verde
+      const r = pista.getBoundingClientRect();
+      pW = r.width;
+      const pH = r.height;
+      pista.width = Math.round(pW * dpr); pista.height = Math.round(pH * dpr);
+      const p = pista.getContext("2d");
+      p.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const x = (t) => (t / FIN) * pW, y = (v) => pH - 8 - ((v - 55) / 115) * (pH - 16);
+      for (let i = 0; i < M.length - 1; i++) {
+        const w = x(M[i + 1][0]) - x(M[i][0]) + 0.5;
+        if (M[i][3] >= 8) { p.fillStyle = "rgba(255, 75, 75, 0.22)"; p.fillRect(x(M[i][0]), 0, w, pH); }
+        if (M[i][2] >= 95) { p.fillStyle = "rgba(46, 204, 113, 0.55)"; p.fillRect(x(M[i][0]), pH - 3, w, 3); }
+      }
+      p.beginPath();
+      M.forEach((f, i) => (i ? p.lineTo(x(f[0]), y(f[1])) : p.moveTo(x(f[0]), y(f[1]))));
+      p.strokeStyle = "#FF9F43"; p.lineWidth = 1.6; p.stroke();
+    }
+
+    let idx = 0, seg = -1, fase = "";
+    function pinta(t) {
+      while (idx > 0 && T[idx] > t) idx--;
+      while (idx < T.length - 2 && T[idx + 1] <= t) idx++;
+      const a = M[idx], b = M[idx + 1], k = limita((t - a[0]) / (b[0] - a[0]), 0, 1);
+      const v = (j) => a[j] + (b[j] - a[j]) * k;
+      const fr = v(3), gas = v(2), glat = v(6), glon = v(7);
+      const f = fr >= 8 ? "frena" : Math.abs(glat) >= 0.8 ? "curva" : gas >= 95 ? "fondo" : "rueda";
+      if (f !== fase) { fase = f; bc.dataset.fase = f; B.fase.textContent = FASES[f]; }
+      B.t.textContent = tVuelta(t);
+      B.kmh.textContent = miles(v(1));
+      B.marcha.textContent = a[5] || "N";
+      B.glat.textContent = signo(glat); B.glon.textContent = signo(glon);
+      B.freno.style.transform = `scaleY(${(fr / 100).toFixed(3)})`; B.frn.textContent = miles(fr);
+      B.gas.style.transform = `scaleY(${(gas / 100).toFixed(3)})`; B.gasn.textContent = miles(gas);
+      B.vol.style.transform = `translateX(${(limita(v(4) / 30, -1, 1) * 50).toFixed(2)}%)`;
+      B.ruedas.forEach((r, i) => {
+        const bt = v(8 + i);
+        r.bt.textContent = miles(bt);
+        r.fr.classList.toggle("caliente", bt >= 200);
+        r.su.style.transform = `scaleY(${limita((v(12 + i) + 30) / 120, 0.04, 1).toFixed(3)})`;
+        const c = limita((bt - 90) / 170, 0, 1);
+        B.discos[i].style.fill = `rgb(${Math.round(lerp(42, 255, c))}, ${Math.round(lerp(45, 90, c))}, ${Math.round(lerp(51, 0, c))})`;
+      });
+      const s = Math.min(Math.floor(t), NE.length - 1);
+      if (s !== seg) {
+        seg = s;
+        B.ruedas.forEach((r, i) => { r.tt.textContent = miles(NE[s][i]); r.tp.textContent = NE[s][4 + i].toFixed(1); });
+      }
+      // GG: la nube de la vuelta, la estela del último segundo y medio y el punto de ahora
+      const m = ggW / 2, kg = (m - 10) / GMAX;
+      cg.clearRect(0, 0, ggW, ggW);
+      cg.drawImage(nube, 0, 0, ggW, ggW);
+      const desde = Math.max(0, idx - 22);
+      for (let j = desde + 1; j <= idx; j++) {
+        cg.strokeStyle = `rgba(255, 90, 0, ${((j - desde) / (idx - desde + 1)).toFixed(3)})`;
+        cg.lineWidth = 2.5;
+        cg.beginPath(); cg.moveTo(m + M[j - 1][6] * kg, m - M[j - 1][7] * kg); cg.lineTo(m + M[j][6] * kg, m - M[j][7] * kg); cg.stroke();
+      }
+      const px = m + glat * kg, py = m - glon * kg;
+      cg.strokeStyle = "rgba(243, 244, 246, 0.35)"; cg.lineWidth = 1;
+      cg.beginPath(); cg.moveTo(m, m); cg.lineTo(px, py); cg.stroke();
+      cg.fillStyle = "#FF5A00"; cg.beginPath(); cg.arc(px, py, 7, 0, Math.PI * 2); cg.fill();
+      cg.strokeStyle = "#F3F4F6"; cg.lineWidth = 2; cg.stroke();
+      B.cursor.style.transform = `translateX(${((t / FIN) * pW).toFixed(1)}px)`;
+      if (!arrastra) B.rango.value = t.toFixed(1);
+    }
+
+    let t = 0, ultimo = 0, rafB = 0, enVista = false, parado = false, arrastra = false;
+    function cuadro(ahora) {
+      rafB = 0;
+      if (!enVista || document.hidden || parado || quieto()) return;
+      if (ultimo) t += Math.min(0.1, (ahora - ultimo) / 1000);
+      ultimo = ahora;
+      if (t > FIN) t = 0;
+      pinta(t);
+      rafB = requestAnimationFrame(cuadro);
+    }
+    const sigue = () => { if (!rafB && enVista && !parado && !document.hidden && !quieto()) { ultimo = 0; rafB = requestAnimationFrame(cuadro); } };
+    B.play.addEventListener("click", () => {
+      parado = !parado;
+      B.play.setAttribute("aria-pressed", String(parado));
+      B.play.setAttribute("aria-label", parado ? "Seguir la vuelta" : "Pausar la vuelta");
+      sigue();
+    });
+    B.rango.addEventListener("pointerdown", () => (arrastra = true));
+    addEventListener("pointerup", () => (arrastra = false));
+    B.rango.addEventListener("input", () => { t = Number(B.rango.value); pinta(t); });
+    addEventListener("resize", () => { ajusta(); pinta(t); });
+    ajusta();
+    pinta(0);
+    new IntersectionObserver((ents) => { enVista = ents[0].isIntersecting; sigue(); }, { threshold: 0.15 }).observe(bc);
+    document.addEventListener("visibilitychange", sigue);
+    document.addEventListener("brum:sigue", sigue);
   }
 
   // ---------- Delta: arrastra por la vuelta ----------
@@ -361,7 +498,6 @@
     function viaja(destino, ms = 900) {
       para();
       const desde = Number(rango.value);
-      if (menosMov) { rango.value = destino; pinta(destino); return; }
       const ini = performance.now();
       const paso = (ahora) => {
         const k = limita((ahora - ini) / ms, 0, 1);
@@ -397,13 +533,13 @@
       rango.value = n;
       rango.parentElement.style.setProperty("--p", (n / 3).toFixed(3));
       rango.setAttribute("aria-valuetext", nombres[n].textContent);
-      if (video) { if (n === 0 && enVista && !menosMov) video.play().catch(() => {}); else video.pause(); }
+      if (video) reproduce(video, n === 0 && enVista);
     }
     rango.addEventListener("input", () => ve(Number(rango.value)));
     nombres.forEach((b, i) => b.addEventListener("click", () => ve(i)));
     new IntersectionObserver((ents) => {
       enVista = ents[0].isIntersecting;
-      if (video) { if (enVista && Number(et.dataset.etapa) === 0 && !menosMov) { video.preload = "auto"; video.play().catch(() => {}); } else video.pause(); }
+      if (video) { if (enVista) video.preload = "auto"; reproduce(video, enVista && Number(et.dataset.etapa) === 0); }
     }, { threshold: 0.35 }).observe(et);
     ve(0);
   }
@@ -497,7 +633,6 @@
     // Se dibuja al entrar
     const dibujar = () => {
       vu.classList.add("dibujada");
-      if (menosMov) return;
       for (const camino of [traza, linMejor]) {
         const largo = camino.getTotalLength();
         camino.style.strokeDasharray = `${largo} ${largo}`;
@@ -521,6 +656,139 @@
     pasos.forEach((p) => obs.observe(p));
   }
 
+  // ---------- Inicio: intentos de ejemplo de Track Limits ----------
+  const ej = $("[data-ej]");
+  if (ej) {
+    const chips = $$("[data-ej-chips] li", ej);
+    const meds = $$("[data-med]", ej);
+    const E = { n: $("[data-ej-n]", ej), inv: $("[data-ej-inv]", ej), res: $("[data-ej-res]", ej) };
+    // Vueltas que se salen en cada intento de ejemplo (las reglas son las reales: Oro hasta 1, Plata 2, Bronce 3)
+    const INTENTOS = [[1, 3, 4, 6], [2, 5], [4]];
+    const estrellas = (inv) => (inv <= 1 ? 3 : inv === 2 ? 2 : inv === 3 ? 1 : 0);
+    const TEXTO = { 0: "Sin medalla. Mira la ficha y repite.", 1: "Bronce. Algo es algo.", 2: "Plata. A por el Oro.", 3: "¡Oro! Siguiente ejercicio." };
+    let k = 0, timers = [], enVista = false, corriendo = false;
+    const espera = (ms) => new Promise((r) => timers.push(setTimeout(r, ms)));
+    function resultado(fuera, salta) {
+      const st = estrellas(fuera.length);
+      meds.forEach((m) => m.classList.toggle("on", Number(m.dataset.med) === st));
+      E.res.textContent = TEXTO[st];
+      E.res.className = `ej-res ${st ? "gana" : "pierde"}`;
+      if (salta) { void E.res.offsetWidth; E.res.classList.add("salta"); }
+    }
+    async function intento() {
+      const fuera = INTENTOS[k % INTENTOS.length];
+      E.n.textContent = `Intento ${(k % INTENTOS.length) + 1}`;
+      E.inv.textContent = "0";
+      E.res.textContent = "Conduciendo…"; E.res.className = "ej-res";
+      meds.forEach((m) => m.classList.remove("on"));
+      chips.forEach((c) => (c.className = ""));
+      let inv = 0;
+      for (let i = 0; i < chips.length; i++) {
+        chips[i].className = "vivo";
+        await espera(420);
+        const ko = fuera.includes(i);
+        chips[i].className = ko ? "ko" : "ok";
+        chips[i].textContent = ko ? "Fuera" : `V${i + 1}`;
+        if (ko) E.inv.textContent = String(++inv);
+        await espera(90);
+      }
+      resultado(fuera, true);
+      await espera(2600);
+      chips.forEach((c, i) => (c.textContent = `V${i + 1}`));
+      k++;
+    }
+    async function bucle() {
+      if (corriendo) return;
+      corriendo = true;
+      while (enVista && !document.hidden && !quieto()) await intento();
+      corriendo = false;
+    }
+    new IntersectionObserver((ents) => { enVista = ents[0].isIntersecting; if (enVista) bucle(); }, { threshold: 0.2 }).observe(ej);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden && enVista) bucle(); });
+    document.addEventListener("brum:sigue", () => { if (enVista) bucle(); });
+  }
+
+  // ---------- ¿Qué te pasa en pista? ----------
+  const ficha = $("[data-ficha]");
+  if (ficha) {
+    const ABRE = { 1: "Abierto desde el principio", 2: "Se abre con 800 XP", 3: "Se abre con 2000 XP", 4: "Se abre con 4000 XP" };
+    const NIVEL = { 1: "Fundamentos", 2: "Técnica", 3: "Avanzado", 4: "Maestría" };
+    // Sacado del catálogo de la app (src/brum/academia/exercises.py)
+    const EJ = [
+      [1, "Standing Start", "Desde parado, llega a 150 km/h en menos de 16 s.", "La salida, el embrague y los cambios de marcha.", "1"],
+      [1, "Brake Marker", "Desde 200 km/h, empieza a frenar entre los metros 143 y 152.", "Frenar siempre en el mismo punto.", "1"],
+      [1, "Smooth Hands", "Una vuelta sin ninguna corrección de volante ni bloqueo de rueda, por debajo de 2:15.", "Suavidad y control del volante.", "1"],
+      [1, "Zero Lock", "5 vueltas sin bloquear, con una media por debajo de 2:06.", "Frenar limpio y controlar el límite.", "5"],
+      [1, "Track Limits", "8 vueltas seguidas con como mucho una invalidada por salida de pista.", "Respetar los límites de pista y guardar margen.", "8"],
+      [1, "Zero Overlap", "5 vueltas válidas sin pisar freno y acelerador a la vez.", "Soltar el acelerador del todo antes de frenar.", "5"],
+      [2, "Late Braker", "Busca tu punto de frenada en la primera chicane y retrásalo 5 m en cada intento.", "Explorar el límite de frenada.", "1 por intento"],
+      [2, "Entry vs Exit", "Un intento cuidando la entrada y otro cuidando la salida: compara cuál da mejor tiempo.", "Entender qué compensa en cada curva.", "2"],
+      [4, "Five Perfect", "5 vueltas con menos de 1,5 s entre la mejor y la peor, y cero bloqueos.", "Consistencia.", "5"],
+      [3, "Double or Nothing", "Apuesta 500 $ de la app: 3 vueltas bajo un tiempo objetivo y como mucho un bloqueo.", "Rendir bajo presión.", "3"],
+    ];
+    const F = {
+      nivel: $("[data-f-nivel]", ficha), abre: $("[data-f-abre]", ficha), nombre: $("[data-f-nombre]", ficha), nombre2: $("[data-f-nombre2]", ficha),
+      obj: $("[data-f-obj]", ficha), ent: $("[data-f-ent]", ficha), v: $("[data-f-v]", ficha),
+    };
+    const botones = $$("[data-p]");
+    function muestra(i) {
+      const [niv, nombre, obj, ent, v] = EJ[i];
+      botones.forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+      F.nivel.textContent = NIVEL[niv];
+      F.nivel.className = `nivel nivel-${niv}`;
+      F.abre.textContent = ABRE[niv];
+      F.nombre.textContent = nombre; F.nombre2.textContent = nombre;
+      F.obj.textContent = obj; F.ent.textContent = ent; F.v.textContent = v;
+      ficha.classList.remove("cambia"); void ficha.offsetWidth; ficha.classList.add("cambia");
+    }
+    botones.forEach((b) => b.addEventListener("click", () => muestra(Number(b.dataset.p))));
+    muestra(5);
+    ficha.classList.remove("cambia");
+  }
+
+  // ---------- Niveles que se apilan ----------
+  const niveles = $$("[data-niv]");
+  niveles.forEach((n, i) => n.style.setProperty("--i", i));
+  function apila() {
+    if (menosMov || !niveles.length) return;
+    for (let i = 0; i < niveles.length - 1; i++) {
+      const a = niveles[i].getBoundingClientRect(), b = niveles[i + 1].getBoundingClientRect();
+      const tapado = limita((a.bottom - b.top) / a.height, 0, 1);
+      niveles[i].style.transform = `scale(${(1 - tapado * 0.06).toFixed(4)})`;
+      niveles[i].style.filter = `brightness(${(1 - tapado * 0.45).toFixed(3)})`;
+    }
+  }
+
+  // ---------- Licencia: de Rookie a A ----------
+  const lic = $("[data-lic]");
+  if (lic) {
+    const esc = $$(".lic-esc li", lic), fill = $("[data-lic-fill]", lic);
+    const enciende = (n) => {
+      esc.forEach((li, i) => li.classList.toggle("on", i <= n));
+      fill.style.transform = `scaleX(${(n / (esc.length - 1)).toFixed(3)})`;
+    };
+    new IntersectionObserver((ents, obs) => {
+      if (!ents[0].isIntersecting) return;
+      obs.disconnect();
+      esc.forEach((_, i) => setTimeout(() => enciende(i), 300 + i * 650));
+    }, { threshold: 0.5 }).observe(lic);
+  }
+  $$(".medallas li").forEach((li, i) => li.style.setProperty("--i", i));
+
+  // ---------- Versiones ----------
+  const ver = $("[data-versiones]");
+  if (ver) {
+    $$("li", ver).forEach((li, i) => li.style.setProperty("--i", i));
+    new IntersectionObserver((ents, obs) => { if (ents[0].isIntersecting) { obs.disconnect(); ver.classList.add("visto"); } }, { threshold: 0.4 }).observe(ver);
+  }
+
+  // ---------- Ráfaga: el vídeo solo corre a la vista ----------
+  const raf = $("[data-rafaga]");
+  if (raf) {
+    raf.removeAttribute("autoplay");
+    new IntersectionObserver((ents) => reproduce(raf, ents[0].isIntersecting), { threshold: 0.2 }).observe(raf);
+  }
+
   // ---------- Diálogo final ----------
   const dlg = $("[data-dialogo]");
   if (dlg) {
@@ -536,8 +804,8 @@
     $$('input[name="modo"]', dlg).forEach((r) => r.addEventListener("change", () => {
       const ya = r.checked && r.value === "ya";
       if (r.checked) paso.parentElement.innerHTML = ya
-        ? `Abre Brum, ve a Historial y abre las vueltas que ya tengas de <b data-paso-sim>${sim.value}</b>.`
-        : `Abre Brum, elige <b data-paso-sim>${sim.value}</b> y pulsa Iniciar grabación.`;
+        ? `Abre Brum, elige <b data-paso-sim>${sim.value}</b> y pulsa Iniciar grabación en En vivo.`
+        : `Abre Brum, elige <b data-paso-sim>${sim.value}</b> y ve a Ejercicios.`;
       paso = $("[data-paso-sim]");
     }));
   }

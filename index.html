@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Brum · Sim Racing Academy</title>
-<meta name="description" content="Brum graba la telemetría de tu simulador, te enseña dónde pierdes tiempo vuelta a vuelta y te entrena con ejercicios que se corrigen solos. Gratis para Windows.">
+<meta name="description" content="¿Empiezas en el sim racing y solo te salen trompos? Brum es una academia en tu PC: ejercicios que te dicen qué hacer en pista y te corrigen con tu telemetría. Gratis para Windows.">
 <meta name="theme-color" content="#0B0B0B">
 <meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Brum · Sabes que eres lento. Brum te dice dónde.">
-<meta property="og:description" content="Telemetría, Comparador y Academia para sim racing. Gratis para Windows.">
+<meta property="og:title" content="Brum · Aprende a pilotar, ejercicio a ejercicio.">
+<meta property="og:description" content="Academia de sim racing en tu PC: ejercicios, medallas y telemetría. Gratis para Windows.">
 <meta property="og:url" content="https://aangeelr.github.io/brum/">
 <meta property="og:image" content="https://aangeelr.github.io/brum/assets/img/redes.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,9 +29,10 @@
       <img src="assets/img/logo-mitad.png" width="676" height="166" alt="Brum · Sim Racing Academy">
     </a>
     <nav class="menu" aria-label="Secciones">
-      <a href="#como">Cómo funciona</a>
-      <a href="#academia">Academia</a>
-      <a href="#simuladores">Simuladores</a>
+      <a href="#ejercicios">Ejercicios</a>
+      <a href="#niveles">Niveles</a>
+      <a href="#telemetria">Telemetría</a>
+      <a href="#obras">En desarrollo</a>
       <a href="#preguntas">Preguntas</a>
     </nav>
     <p class="metro" data-ui data-metro title="Tu scroll es una vuelta a Oulton Park con los datos reales del Comparador">
@@ -39,6 +40,9 @@
       <span class="metro-m" data-metro-m>0 m</span>
       <span class="metro-d" data-metro-d>±0.000</span>
     </p>
+    <button class="pausa" type="button" data-pausa aria-pressed="false" aria-label="Pausar animaciones" title="Pausar animaciones">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pausa" d="M8 5v14M16 5v14" /><path class="i-sigue" d="M7 5l12 7-12 7z" /></svg>
+    </button>
     <a class="boton boton-barra" href="https://github.com/aangeelr/brum/releases/latest/download/Brum-instalador.exe">Descargar</a>
   </div>
 </header>
@@ -49,25 +53,227 @@
 <section class="inicio" id="inicio">
   <div class="inicio-texto">
     <h1 class="titular">
-      <span class="linea"><span>Sabes que eres lento.</span></span>
-      <span class="linea"><span>Brum te dice dónde.</span></span>
+      <span class="linea"><span>Aprende a pilotar,</span></span>
+      <span class="linea"><span>ejercicio a ejercicio.</span></span>
     </h1>
     <div class="inicio-abajo">
-      <p class="entrada">Graba la telemetría de tu simulador, compara cada vuelta metro a metro y entrena con ejercicios que se corrigen solos.</p>
+      <p class="entrada">¿Solo te salen trompos? Normal. Brum es una academia de sim racing en tu PC: ejercicios cortos que te dicen qué hacer en pista y te corrigen con tu telemetría.</p>
       <div class="accion">
         <a class="boton" href="https://github.com/aangeelr/brum/releases/latest/download/Brum-instalador.exe">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16" /></svg>
-          Descargar para Windows
+          Descargar gratis para Windows
         </a>
-        <p class="nota">Gratis y en tu PC · versión 0.6.1 · 260 MB</p>
-        <p class="nota-sims">Para Assetto Corsa, AC EVO, Automobilista 2, rFactor 2, Le Mans Ultimate e iRacing.</p>
+        <p class="nota">Versión 0.6.1 · 260 MB · <a href="#obras">en desarrollo, y tu opinión cuenta</a></p>
       </div>
     </div>
   </div>
 
-  <figure class="inicio-hud">
-    <div class="hud-escena" data-tilt>
-      <img class="hud-fondo" src="assets/capturas/envivo-1600.webp" width="1600" height="814" alt="" aria-hidden="true" fetchpriority="high">
+  <figure class="inicio-ej">
+    <div class="ej-escena" data-tilt>
+      <img class="ej-fondo" src="assets/capturas/ejercicio-ficha-1600.webp" width="1600" height="814" alt="" aria-hidden="true" fetchpriority="high">
+      <div class="ej" data-ui data-ej role="img" aria-label="Ejemplo de tres intentos del ejercicio Track Limits: sin medalla, Plata y Oro, según las vueltas invalidadas.">
+        <div class="ej-cab" aria-hidden="true">
+          <span class="nivel nivel-1">Fundamentos</span>
+          <b>Track Limits</b><span class="ej-vueltas">8 vueltas</span>
+        </div>
+        <p class="ej-obj" aria-hidden="true"><b>Objetivo:</b> 8 vueltas seguidas con como mucho una invalidada por salida de pista.</p>
+        <div class="ej-medallas" aria-hidden="true">
+          <div class="med med-oro" data-med="3"><i>★★★</i><b>Oro</b><span>hasta 1 fuera</span></div>
+          <div class="med med-plata" data-med="2"><i>★★</i><b>Plata</b><span>hasta 2</span></div>
+          <div class="med med-bronce" data-med="1"><i>★</i><b>Bronce</b><span>hasta 3</span></div>
+        </div>
+        <div class="ej-intento" aria-hidden="true">
+          <div class="ej-intento-cab"><b data-ej-n>Intento 1</b><span>Invalidadas <b data-ej-inv>0</b></span></div>
+          <ol class="ej-chips" data-ej-chips>
+            <li>V1</li><li>V2</li><li>V3</li><li>V4</li><li>V5</li><li>V6</li><li>V7</li><li>V8</li>
+          </ol>
+        </div>
+        <p class="ej-res" data-ej-res aria-hidden="true">Conduciendo…</p>
+      </div>
+    </div>
+    <figcaption>Intentos de ejemplo con las reglas reales de Track Limits, uno de los ejercicios de Fundamentos.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== RÁFAGA ===================== -->
+<section class="rafaga" aria-labelledby="rafaga-t">
+  <div class="rafaga-video" data-ui>
+    <video data-rafaga muted loop playsinline autoplay preload="metadata" poster="assets/video/delta-poster.webp" width="1600" height="346" aria-label="La barra de delta y los sectores de En vivo en una tanda real: primero en verde, luego en rojo">
+      <source src="assets/video/delta.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="rafaga-texto">
+    <h2 id="rafaga-t"><span class="g">Verde: vas más rápido.</span><br><span class="p">Rojo: la estás palmando.</span></h2>
+    <p>Así se ve En vivo mientras conduces: el delta contra tu mejor vuelta y cada sector, al momento. Tanda real, a doble velocidad.</p>
+  </div>
+</section>
+
+<!-- ===================== MARQUESINA ===================== -->
+<div class="marquesina" aria-hidden="true">
+  <div class="mq mq-mal"><div class="mq-pista">
+    <span>Te pasas de frenada</span><span>Pisas hierba</span><span>Bloqueas las ruedas</span><span>Das bandazos</span><span>Mezclas gas y freno</span><span>Sales fatal desde parado</span><span>Una buena y tres malas</span><span>Vuelta inválida</span>
+    <span>Te pasas de frenada</span><span>Pisas hierba</span><span>Bloqueas las ruedas</span><span>Das bandazos</span><span>Mezclas gas y freno</span><span>Sales fatal desde parado</span><span>Una buena y tres malas</span><span>Vuelta inválida</span>
+  </div></div>
+  <div class="mq mq-bien"><div class="mq-pista">
+    <span>Brake Marker</span><span>Track Limits</span><span>Zero Lock</span><span>Smooth Hands</span><span>Zero Overlap</span><span>Standing Start</span><span>Late Braker</span><span>The Window</span><span>Entry vs Exit</span><span>The Corner</span><span>Unknown Grip</span><span>No Assists</span><span>Five Perfect</span><span>The Metronome</span>
+    <span>Brake Marker</span><span>Track Limits</span><span>Zero Lock</span><span>Smooth Hands</span><span>Zero Overlap</span><span>Standing Start</span><span>Late Braker</span><span>The Window</span><span>Entry vs Exit</span><span>The Corner</span><span>Unknown Grip</span><span>No Assists</span><span>Five Perfect</span><span>The Metronome</span>
+  </div></div>
+</div>
+
+<!-- ===================== QUÉ TE PASA ===================== -->
+<section class="prob" id="ejercicios" data-prob aria-labelledby="prob-t">
+  <div class="prob-texto" data-revela>
+    <h2 id="prob-t">¿Qué te pasa en pista?</h2>
+    <p>Elige lo que más te frustra y mira el ejercicio que lo trabaja. Todos te explican qué hacer antes de salir.</p>
+  </div>
+  <div class="prob-lista" role="group" aria-label="Problemas en pista">
+    <button type="button" class="prob-b" data-p="0">Sales fatal desde parado</button>
+    <button type="button" class="prob-b" data-p="1">Cada vez frenas en un sitio</button>
+    <button type="button" class="prob-b" data-p="2">Das bandazos con el volante</button>
+    <button type="button" class="prob-b" data-p="3">Se te bloquean las ruedas</button>
+    <button type="button" class="prob-b" data-p="4">Te sales de pista</button>
+    <button type="button" class="prob-b" data-p="5" aria-pressed="true">Pisas gas y freno a la vez</button>
+    <button type="button" class="prob-b" data-p="6">Frenas demasiado pronto</button>
+    <button type="button" class="prob-b" data-p="7">No sabes si cuidar la entrada o la salida</button>
+    <button type="button" class="prob-b" data-p="8">Una vuelta buena y tres malas</button>
+    <button type="button" class="prob-b" data-p="9">Te pones nervioso cuando importa</button>
+  </div>
+  <article class="ficha-ej" data-ui data-ficha aria-live="polite">
+    <p class="fe-cab"><span class="nivel" data-f-nivel>Fundamentos</span><span data-f-abre>Abierto desde el principio</span></p>
+    <h3 data-f-nombre>Zero Overlap</h3>
+    <dl>
+      <div><dt>Objetivo</dt><dd data-f-obj>5 vueltas válidas sin pisar freno y acelerador a la vez.</dd></div>
+      <div><dt>Entrena</dt><dd data-f-ent>Soltar el acelerador del todo antes de frenar.</dd></div>
+      <div><dt>Vueltas</dt><dd data-f-v>5</dd></div>
+    </dl>
+    <p class="fe-pie">En la app: Ejercicios → <b data-f-nombre2>Zero Overlap</b> → Conducirlo ahora.</p>
+  </article>
+</section>
+
+<!-- ===================== NIVELES ===================== -->
+<section class="niveles" id="niveles" data-niveles aria-labelledby="niv-t">
+  <div class="niveles-cab" data-revela>
+    <h2 id="niv-t">Del primer día a la maestría.</h2>
+    <p>18 ejercicios en cuatro niveles. Fundamentos está abierto desde el principio; los demás se abren con la XP que ganas entrenando.</p>
+  </div>
+  <div class="niv-pila">
+    <article class="niv niv-1" data-niv>
+      <p class="niv-abre">Abierto desde el principio</p>
+      <h3>Fundamentos</h3>
+      <p class="niv-de">Lo básico: salir, frenar donde toca, ser suave, no pisar fuera y no mezclar gas y freno.</p>
+      <ul><li>Standing Start</li><li>Brake Marker</li><li>Smooth Hands</li><li>Zero Lock</li><li>Track Limits</li><li>Zero Overlap</li></ul>
+    </article>
+    <article class="niv niv-2" data-niv>
+      <p class="niv-abre">Se abre con 800 XP</p>
+      <h3>Técnica</h3>
+      <p class="niv-de">La curva por partes: frenar más tarde, el vértice y elegir entre entrada y salida.</p>
+      <ul><li>Late Braker</li><li>The Window</li><li>Entry vs Exit</li><li>The Corner</li></ul>
+    </article>
+    <article class="niv niv-3" data-niv>
+      <p class="niv-abre">Se abre con 2000 XP</p>
+      <h3>Avanzado</h3>
+      <p class="niv-de">Sin red: un grip que no conoces, una apuesta y sin asistencias.</p>
+      <ul><li>Unknown Grip</li><li>Double or Nothing</li><li>No Assists</li></ul>
+    </article>
+    <article class="niv niv-4" data-niv>
+      <p class="niv-abre">Se abre con 4000 XP</p>
+      <h3>Maestría</h3>
+      <p class="niv-de">Consistencia de verdad: tandas largas clavadas al mismo ritmo y el examen final.</p>
+      <ul><li>Five Perfect</li><li>No Hero Lap</li><li>The Metronome</li><li>One Hour Driver</li><li>Driver Assessment</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== CÓMO ===================== -->
+<section class="como" id="como" data-etapas data-etapa="0" aria-labelledby="como-t">
+  <h2 class="vh" id="como-t">Cómo funciona un ejercicio</h2>
+  <div class="como-campo como-texto">
+    <div class="etapa-t" data-et="0"><h3>Lee la ficha.</h3><p>Qué hacer en el simulador, paso a paso, y qué pide el Oro, la Plata y el Bronce. Antes de salir, no después.</p></div>
+    <div class="etapa-t" data-et="1"><h3>Conduce.</h3><p>Con «Conducirlo ahora», Brum graba y empieza a contar las vueltas cuando le dices que estás en posición.</p></div>
+    <div class="etapa-t" data-et="2"><h3>Brum te corrige.</h3><p>Lee tu telemetría y te dice qué ha fallado y en qué vuelta: aquí, cuántas veces pisaste gas y freno a la vez.</p></div>
+    <div class="etapa-t" data-et="3"><h3>Medalla, y a por otra.</h3><p>Cada ejercicio da XP, dinero de la app y puntos de licencia. Con la XP se abren los niveles siguientes.</p></div>
+  </div>
+  <div class="como-campo como-media">
+    <div class="etapa-m" data-et="0" data-ui><img src="assets/capturas/ejercicio-ficha-1600.webp" srcset="assets/capturas/ejercicio-ficha-800.webp 800w, assets/capturas/ejercicio-ficha-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 50vw" width="1600" height="814" loading="lazy" alt="Ficha de Track Limits en Brum: objetivo, cómo se hace en el simulador y medallas"></div>
+    <div class="etapa-m" data-et="1" data-ui>
+      <video data-video muted loop playsinline preload="none" poster="assets/video/envivo-poster.webp" width="1280" height="652" aria-label="Grabación de la pantalla En vivo de Brum durante una tanda">
+        <source src="assets/video/envivo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="etapa-m" data-et="2" data-ui><img src="assets/capturas/ejercicio-evaluacion-1600.webp" srcset="assets/capturas/ejercicio-evaluacion-800.webp 800w, assets/capturas/ejercicio-evaluacion-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 50vw" width="1600" height="814" loading="lazy" alt="Corrección de Zero Overlap: solapes de freno y acelerador vuelta a vuelta, con un gráfico por vuelta"></div>
+    <div class="etapa-m" data-et="3" data-ui><img src="assets/capturas/licencia-1600.webp" srcset="assets/capturas/licencia-800.webp 800w, assets/capturas/licencia-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 50vw" width="1600" height="814" loading="lazy" alt="Licencia D, Driver Rating y medallas en el Perfil de Brum"></div>
+  </div>
+  <div class="como-control">
+    <label class="rango rango-etapas">
+      <span class="vh">Paso</span>
+      <input type="range" min="0" max="3" step="1" value="0" data-etapas-rango aria-valuetext="Ficha">
+    </label>
+    <div class="etapas-nombres">
+      <button type="button" data-ir="0">Ficha</button>
+      <button type="button" data-ir="1">Conduce</button>
+      <button type="button" data-ir="2">Corrige</button>
+      <button type="button" data-ir="3">Medalla</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROGRESIÓN ===================== -->
+<section class="prog" id="progresion" aria-labelledby="prog-t">
+  <div class="prog-cab" data-revela>
+    <h2 id="prog-t">Engancha. Y de eso se trata.</h2>
+    <p>Cuanto más entrenas, más se abre: licencia, medallas, racha y una Tienda donde gastar lo que ganas.</p>
+  </div>
+
+  <div class="lic" data-ui data-lic data-revela>
+    <p class="lic-cab"><b>Licencia</b><span>De Rookie a A</span></p>
+    <ol class="lic-esc">
+      <li class="l-rookie"><b>Rookie</b><span>0 LP</span></li>
+      <li class="l-d"><b>D</b><span>150 LP</span></li>
+      <li class="l-c"><b>C</b><span>450 LP</span></li>
+      <li class="l-b"><b>B</b><span>900 LP</span></li>
+      <li class="l-a"><b>A</b><span>1500 LP</span></li>
+    </ol>
+    <div class="lic-barra"><span data-lic-fill></span></div>
+    <p class="lic-pie">Los ejercicios suman puntos de licencia. Quedarte sin estrellas resta.</p>
+  </div>
+
+  <div class="medallas" data-ui data-revela>
+    <p class="med-cab"><b>Medallas</b><span>Se ganan en pista</span></p>
+    <ul>
+      <li><b>First Blood</b><span>Primer ejercicio completado.</span></li>
+      <li><b>Clean Lap</b><span>Vuelta sin errores: sin correcciones ni bloqueos.</span></li>
+      <li><b>Zero Lock</b><span>10 vueltas sin bloqueo de rueda.</span></li>
+      <li><b>Late Braker</b><span>Frenada dentro del 1 % del objetivo.</span></li>
+      <li><b>Metronome</b><span>20 vueltas con desviación estándar por debajo de 0,3 s.</span></li>
+      <li><b>Perfect Lap</b><span>Vuelta perfecta: Oro, sin correcciones ni bloqueos.</span></li>
+      <li><b>Gold Standard</b><span>Oro en todos los ejercicios de la Academia.</span></li>
+    </ul>
+  </div>
+
+  <div class="tienda" data-ui data-revela>
+    <p class="med-cab"><b>Tienda</b><span>Con el dinero que dan los ejercicios y la racha</span></p>
+    <div class="tienda-fila" data-tienda>
+      <div class="ti ti-tema"><small>Tema HUD</small><b>Daytona</b><span>Azul acero y naranja quemado</span></div>
+      <div class="ti ti-tema t2"><small>Tema HUD</small><b>Bathurst</b><span>Púrpura y cian</span></div>
+      <div class="ti"><small>Boost</small><b>Training Boost</b><span>+50 % de XP la próxima sesión</span></div>
+      <div class="ti"><small>Boost</small><b>$ Boost</b><span>+50 % de $ la próxima sesión</span></div>
+      <div class="ti"><small>Modificador</small><b>No HUD</b><span>Repites el reto sin HUD de apoyo: más XP</span></div>
+      <div class="ti"><small>Modificador</small><b>Hard Mode</b><span>Te exige Oro: más XP si lo consigues</span></div>
+      <div class="ti"><small>Título</small><b>Telemetry Nerd</b><span>Para lucir en tu perfil</span></div>
+      <div class="ti ti-tema t3"><small>Tema HUD</small><b>Suzuka</b><span>Rojo y blanco</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TELEMETRÍA ===================== -->
+<section class="tele" id="telemetria" aria-labelledby="tele-t">
+  <div class="tele-texto" data-revela>
+    <h2 id="tele-t">Y cuando quieras mirar más a fondo.</h2>
+    <p>Debajo de los ejercicios hay telemetría de verdad. Mientras conduces, En vivo te enseña el delta, los sectores, los pedales y la velocidad.</p>
+  </div>
+  <figure class="hud-figura">
+    <div class="hud-escena" data-tilt-hud>
+      <img class="hud-fondo" src="assets/capturas/envivo-1600.webp" width="1600" height="814" alt="" aria-hidden="true" loading="lazy">
       <div class="hud" data-ui data-hud role="img" aria-label="Reproducción de una vuelta real en Oulton Park: el delta, los sectores, los pedales y la velocidad cambian como en la pantalla En vivo de Brum.">
         <div class="hud-cab" aria-hidden="true">
           <span class="hud-titulo">En vivo</span>
@@ -109,15 +315,80 @@
         <div class="hud-meta" data-hud-meta aria-hidden="true"><span>Nueva mejor vuelta</span><b>1:14.847</b><em>−0.926</em></div>
       </div>
     </div>
-    <figcaption>Una vuelta real en Oulton Park con el MX-5 ND Cup contra la anterior, reproducida a triple velocidad. Así se ve En vivo mientras conduces.</figcaption>
+    <figcaption>Una vuelta real en Oulton Park con el MX-5 ND Cup contra la anterior, reproducida a triple velocidad.</figcaption>
   </figure>
+</section>
+
+<!-- ===================== BANCO DE DATOS ===================== -->
+<section class="banco" id="datos" aria-labelledby="banco-t">
+  <div class="banco-texto" data-revela>
+    <h2 id="banco-t">Todo lo que hace el coche, grabado.</h2>
+    <p>Fuerzas G, pedales, volante, temperatura y presión de cada neumático, frenos y suspensión. Esto es una vuelta real, a velocidad real: arrastra la barra de abajo para ir a cualquier punto.</p>
+  </div>
+  <figure class="banco-fig">
+    <div class="banco-panel" data-ui data-banco>
+      <div class="bc-cab">
+        <span class="bc-fase" data-bc-fase>Rodando</span>
+        <span class="bc-lect"><b data-bc-t>0:00.000</b><span><b data-bc-kmh>0</b> km/h</span><span>Marcha <b data-bc-marcha>3</b></span></span>
+      </div>
+      <div class="bc-gg">
+        <small>Diagrama GG</small>
+        <canvas data-bc-gg width="360" height="360" aria-hidden="true"></canvas>
+        <p class="bc-gg-n"><span>Lateral <b data-bc-glat>0.00</b> G</span><span>Longitudinal <b data-bc-glon>0.00</b> G</span></p>
+      </div>
+      <div class="bc-coche">
+        <div class="bc-rueda r-di" data-rueda="0"><small>Delantera izq.</small><b><span data-tt>0</span>°</b><span class="bc-psi"><span data-tp>0</span> psi</span><span class="bc-fr">Freno <b data-bt>0</b>°</span><span class="bc-su" title="Suspensión"><i data-su></i></span></div>
+        <svg class="bc-silueta" viewBox="0 0 160 300" aria-hidden="true">
+          <path class="bc-carro" d="M80 8c-26 0-44 14-48 40l-6 52v110l6 44c4 24 22 38 48 38s44-14 48-38l6-44V100l-6-52C124 22 106 8 80 8z" />
+          <path class="bc-cabina" d="M52 120c8-10 48-10 56 0l-4 70c-12 6-36 6-48 0z" />
+          <rect class="r-di" x="4" y="52" width="22" height="56" rx="6" /><circle class="bc-disco" data-disco="0" cx="15" cy="80" r="7" />
+          <rect class="r-dd" x="134" y="52" width="22" height="56" rx="6" /><circle class="bc-disco" data-disco="1" cx="145" cy="80" r="7" />
+          <rect class="r-ti" x="4" y="200" width="22" height="56" rx="6" /><circle class="bc-disco" data-disco="2" cx="15" cy="228" r="7" />
+          <rect class="r-td" x="134" y="200" width="22" height="56" rx="6" /><circle class="bc-disco" data-disco="3" cx="145" cy="228" r="7" />
+        </svg>
+        <div class="bc-rueda r-dd" data-rueda="1"><small>Delantera der.</small><b><span data-tt>0</span>°</b><span class="bc-psi"><span data-tp>0</span> psi</span><span class="bc-fr">Freno <b data-bt>0</b>°</span><span class="bc-su" title="Suspensión"><i data-su></i></span></div>
+        <div class="bc-rueda r-ti" data-rueda="2"><small>Trasera izq.</small><b><span data-tt>0</span>°</b><span class="bc-psi"><span data-tp>0</span> psi</span><span class="bc-fr">Freno <b data-bt>0</b>°</span><span class="bc-su" title="Suspensión"><i data-su></i></span></div>
+        <div class="bc-rueda r-td" data-rueda="3"><small>Trasera der.</small><b><span data-tt>0</span>°</b><span class="bc-psi"><span data-tp>0</span> psi</span><span class="bc-fr">Freno <b data-bt>0</b>°</span><span class="bc-su" title="Suspensión"><i data-su></i></span></div>
+      </div>
+      <div class="bc-mandos">
+        <div class="bc-pedal bc-freno"><small>Freno</small><span class="bc-tubo"><i data-bc-freno></i></span><b data-bc-frn>0</b></div>
+        <div class="bc-pedal bc-gas"><small>Gas</small><span class="bc-tubo"><i data-bc-gas></i></span><b data-bc-gasn>0</b></div>
+        <div class="bc-volante"><small>Volante</small><span class="bc-vol"><i data-bc-vol></i></span></div>
+      </div>
+      <div class="bc-linea">
+        <button type="button" class="bc-play" data-bc-play aria-pressed="false" aria-label="Pausar la vuelta">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pausa" d="M8 5v14M16 5v14" /><path class="i-sigue" d="M7 5l12 7-12 7z" /></svg>
+        </button>
+        <div class="bc-pista">
+          <canvas data-bc-vel aria-hidden="true"></canvas>
+          <span class="bc-cursor" data-bc-cursor aria-hidden="true"></span>
+          <input class="bc-rango" type="range" min="0" max="74.8" step="0.1" value="0" data-bc-rango aria-label="Momento de la vuelta, en segundos">
+        </div>
+      </div>
+    </div>
+    <figcaption>Oulton Park con el Mazda MX-5 ND Cup en Assetto Corsa EVO: los canales que grabó Brum en una vuelta de 1:14.847, dibujados por esta web. Cada rueda va en su color, como en la app.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== PESTAÑAS ===================== -->
+<section class="pestanas" aria-labelledby="pest-t">
+  <div class="pest-cab" data-revela>
+    <h2 id="pest-t">Siete pestañas para mirarlo con lupa.</h2>
+    <p>Después de la tanda, el Historial lo ordena todo: General, Suspensión, Neumáticos y frenos, Dinámica, Fiabilidad, Pista y ayudas y Matemáticos. Y los gráficos X-Y que quieras, como el diagrama GG.</p>
+  </div>
+  <div class="pest-rejilla">
+    <figure class="pest" data-revela><a href="assets/capturas/general-1600.webp"><img src="assets/capturas/general-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña General comparando tres vueltas: delta, velocidad, volante, freno y acelerador"></a><figcaption><b>General</b>Tres vueltas una encima de otra: delta, velocidad, volante, freno y acelerador.</figcaption></figure>
+    <figure class="pest" data-revela><a href="assets/capturas/neumaticos-1600.webp"><img src="assets/capturas/neumaticos-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Neumáticos y frenos: temperatura por zonas de cada rueda, del núcleo y presión"></a><figcaption><b>Neumáticos y frenos</b>Temperatura de cada neumático por zonas, la del núcleo y la presión. También frenos, carga y caída.</figcaption></figure>
+    <figure class="pest" data-revela><a href="assets/capturas/dinamica-1600.webp"><img src="assets/capturas/dinamica-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Dinámica: G lateral, G longitudinal, giro del coche y deslizamiento de rueda"></a><figcaption><b>Dinámica</b>G lateral y longitudinal, giro del coche y deslizamiento de cada rueda.</figcaption></figure>
+    <figure class="pest" data-revela><a href="assets/capturas/suspension-1600.webp"><img src="assets/capturas/suspension-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Suspensión: recorrido e histogramas de velocidad del amortiguador por rueda"></a><figcaption><b>Suspensión</b>Recorrido de cada rueda y los histogramas de velocidad y recorrido del amortiguador.</figcaption></figure>
+  </div>
 </section>
 
 <!-- ===================== DELTA ===================== -->
 <section class="delta" id="delta" data-delta data-estado="gana" aria-labelledby="delta-t">
   <div class="delta-texto">
     <h2 id="delta-t"><span data-delta-palabra>Aquí ganas.</span></h2>
-    <p>Arrastra por la vuelta. Es lo que hace el Comparador de Brum: tu vuelta nueva contra la anterior, metro a metro. El delta dice dónde se va el tiempo.</p>
+    <p>Después, el Comparador pone dos vueltas una encima de otra, metro a metro. Arrastra por esta y mira dónde se va el tiempo.</p>
   </div>
   <div class="delta-frag" data-ui>
     <div class="delta-lectura">
@@ -150,51 +421,18 @@
   <p class="pie-dato">Oulton Park · Mazda MX-5 ND Cup · Assetto Corsa EVO · 1:14.847 contra 1:15.777. Telemetría real grabada con Brum.</p>
 </section>
 
-<!-- ===================== CÓMO ===================== -->
-<section class="como" id="como" data-etapas data-etapa="0" aria-labelledby="como-t">
-  <h2 class="vh" id="como-t">Cómo funciona</h2>
-  <div class="como-campo como-texto">
-    <div class="etapa-t" data-et="0"><h3>Graba sin tocar nada.</h3><p>Eliges simulador, le das a grabar y conduces. Cada vuelta se guarda sola, con sus sectores, sea válida o no.</p></div>
-    <div class="etapa-t" data-et="1"><h3>Compara metro a metro.</h3><p>Marca dos vueltas, o las que quieras: velocidad, pedales, volante, marchas y delta en el mismo gráfico, alineados por distancia.</p></div>
-    <div class="etapa-t" data-et="2"><h3>Entrena con un objetivo.</h3><p>Cada ejercicio te dice qué hacer en pista y qué pide el Oro. Brum lo corrige leyendo tu telemetría.</p></div>
-    <div class="etapa-t" data-et="3"><h3>Sube de licencia.</h3><p>De Rookie a A. Los ejercicios suman puntos de licencia, el Driver Rating sube y las medallas se ganan en pista.</p></div>
-  </div>
-  <div class="como-campo como-media">
-    <div class="etapa-m" data-et="0" data-ui>
-      <video data-video muted loop playsinline preload="none" poster="assets/video/envivo-poster.webp" width="1280" height="652" aria-label="Grabación de la pantalla En vivo de Brum durante una vuelta">
-        <source src="assets/video/envivo.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="etapa-m" data-et="1" data-ui><img src="assets/capturas/comparador-1600.webp" srcset="assets/capturas/comparador-800.webp 800w, assets/capturas/comparador-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 50vw" width="1600" height="814" loading="lazy" alt="Historial de Brum con el Comparador: delta y velocidad de dos vueltas en Oulton Park"></div>
-    <div class="etapa-m" data-et="2" data-ui><img src="assets/capturas/ej-evaluacion-680.webp" width="680" height="343" loading="lazy" alt="Evaluación de un ejercicio: solapes de freno y acelerador vuelta a vuelta"></div>
-    <div class="etapa-m" data-et="3" data-ui><img src="assets/capturas/licencia-recorte-1770.webp" width="1770" height="890" loading="lazy" alt="Licencia y Driver Rating: de Rookie a A, con el Driver Rating y las medallas"></div>
-  </div>
-  <div class="como-control">
-    <label class="rango rango-etapas">
-      <span class="vh">Etapa</span>
-      <input type="range" min="0" max="3" step="1" value="0" data-etapas-rango aria-valuetext="Graba">
-    </label>
-    <div class="etapas-nombres">
-      <button type="button" data-ir="0">Graba</button>
-      <button type="button" data-ir="1">Compara</button>
-      <button type="button" data-ir="2">Entrena</button>
-      <button type="button" data-ir="3">Sube</button>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== MEJORA ===================== -->
 <section class="mejora" id="mejora" aria-labelledby="mejora-t">
   <div class="mejora-foto" aria-hidden="true"><img src="assets/fotos/zandvoort.webp" width="1920" height="1279" alt="" loading="lazy" data-parallax></div>
   <div class="mejora-in">
     <div class="mejora-texto" data-revela>
       <h2 id="mejora-t">Mejorar no es una línea recta.</h2>
-      <p class="frase" data-mejora-frase>32 vueltas válidas en Brands Hatch con el Mini, en seis tandas y dos días: de 1:07.209 a 1:00.804. 21 fueron más rápidas que la anterior y 10 más lentas. Brum te enseña las dos, porque en las rojas está la siguiente mejora.</p>
+      <p class="frase">La progresión real se parece a esto: vueltas que salen mejor, otras que salen peor y una mejor vuelta que va bajando poco a poco. No te frustres con las rojas: ahí está lo siguiente que aprender.</p>
     </div>
     <div class="vueltas" data-ui data-vueltas>
       <div class="vueltas-lectura" aria-live="polite">
         <p class="vl-t" data-vl-t>1:00.804</p>
-        <p class="vl-i" data-vl-i>Vuelta 26 de 32 · tanda 4 · nueva mejor</p>
+        <p class="vl-i" data-vl-i>Vuelta 13 de 32 · nueva mejor</p>
       </div>
       <div class="vueltas-graf">
         <svg viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true" data-vueltas-svg></svg>
@@ -202,78 +440,23 @@
       </div>
       <p class="vueltas-ley"><span><i class="g"></i>Más rápida que la anterior</span><span><i class="p"></i>Más lenta que la anterior</span><span><i class="m"></i>Tu mejor vuelta hasta ese momento</span></p>
     </div>
-    <p class="pie-dato">Vueltas válidas reales del autor de Brum: Assetto Corsa EVO, Brands Hatch, Mini John Cooper S, 9 y 10 de octubre de 2026. Foto de fondo: Circuit Zandvoort, de dronepicr (CC BY 2.0).</p>
-  </div>
-</section>
-
-<!-- ===================== ACADEMIA ===================== -->
-<section class="academia" id="academia" aria-labelledby="academia-t">
-  <h2 id="academia-t" data-revela>Una academia, no un cronómetro.</h2>
-  <div class="modulos">
-    <article class="modulo" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/ej-niveles-720.webp" width="720" height="212" loading="lazy" alt="Catálogo de ejercicios por niveles: Avanzado y Maestría, con sus estrellas"></div>
-      <div class="modulo-texto">
-        <h3>Ejercicios por niveles</h3>
-        <p>Cuatro niveles, de lo básico a la maestría: Standing Start, Brake Marker, The Window, Unknown Grip, The Metronome…</p>
-      </div>
-    </article>
-    <article class="modulo" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/ej-evaluacion-680.webp" width="680" height="343" loading="lazy" alt="Corrección de Zero Overlap: Oro sin solapes, Plata hasta 5, y el gráfico de pedales de la vuelta 1 con 4 solapes"></div>
-      <div class="modulo-texto">
-        <h3>Te corrige con tu telemetría</h3>
-        <p>En Zero Overlap cuenta los solapes de freno y acelerador vuelta a vuelta y te los dibuja.</p>
-        <p>Si no llegas, sabes exactamente cuánto te falta y dónde.</p>
-      </div>
-    </article>
-    <article class="modulo modulo-amplio" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/ej-ficha-1180.webp" width="1180" height="420" loading="lazy" alt="Ficha de Track Limits: objetivo, cómo se hace en el simulador y cuántas vueltas invalidadas permite el Oro, la Plata y el Bronce"></div>
-      <div class="modulo-texto">
-        <h3>Oro, Plata o Bronce</h3>
-        <p>Cada ficha dice qué hacer en el simulador y qué pide cada medalla antes de que salgas. Luego eliges: conducirlo ahora, y Brum graba y cuenta las vueltas desde que estás en posición, o usar vueltas que ya tienes.</p>
-      </div>
-    </article>
-    <article class="modulo" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/licencia-detalle-700.webp" width="700" height="500" loading="lazy" alt="Licencia D con 409 puntos y el camino de Rookie a A"></div>
-      <div class="modulo-texto">
-        <h3>Licencia, Driver Rating y medallas</h3>
-        <p>De Rookie a A, cada licencia pide sus puntos. El Driver Rating solo sube.</p>
-        <p>Las medallas, como First Blood, Clean Lap o Metronome, se ganan en pista.</p>
-      </div>
-    </article>
-    <article class="modulo" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/racha-750.webp" width="750" height="335" loading="lazy" alt="Inicio de Brum con la racha de 7 días y lo que te espera hoy"></div>
-      <div class="modulo-texto">
-        <h3>Racha, temporada y Tienda</h3>
-        <p>Salir a pista cada día alimenta la racha y te da dinero de la app.</p>
-        <p>Se gasta en la Tienda: boosts, modificadores, títulos y temas.</p>
-      </div>
-    </article>
-    <article class="modulo" data-revela>
-      <div class="modulo-panel" data-ui><img src="assets/capturas/tema-azul-recorte-880.webp" width="880" height="380" loading="lazy" alt="Perfil de Brum con un tema HUD azul equipado"></div>
-      <div class="modulo-texto">
-        <h3>Hazla tuya</h3>
-        <p>Temas HUD para toda la app: Daytona, Bathurst, Imola, Le Mans, Suzuka…</p>
-        <p>El mismo Brum, con tus colores.</p>
-      </div>
-    </article>
+    <p class="pie-dato">Vueltas válidas reales del autor de Brum en Brands Hatch con el Mini (Assetto Corsa EVO). Foto de fondo: Circuit Zandvoort, de dronepicr (CC BY 2.0).</p>
   </div>
 </section>
 
 <!-- ===================== HERRAMIENTAS ===================== -->
 <section class="herr" id="herramientas" data-herr aria-labelledby="herr-t">
   <div class="herr-lista">
-    <h2 id="herr-t">Y la telemetría, a fondo.</h2>
-    <div class="herr-paso" data-herr-paso="0"><h3>Todos los canales.</h3><p>Suspensión, neumáticos y frenos, dinámica, fiabilidad, pista y ayudas: lo que manda el simulador, ordenado en pestañas.</p></div>
-    <div class="herr-paso" data-herr-paso="1"><h3>Tus propios canales.</h3><p>Escribe una fórmula y Brum la dibuja: G combinada, solape de freno y acelerador, rake, balance por recorridos…</p></div>
-    <div class="herr-paso" data-herr-paso="2"><h3>Setups de Assetto Corsa.</h3><p>Lee y edita tus setups con los rangos reales de cada coche, combustible y estrategia incluidos, y guárdalos para el juego.</p></div>
-    <div class="herr-paso" data-herr-paso="3"><h3>Exporta y comparte.</h3><p>Pasa una tanda a MoTeC i2 o mándasela a otro piloto en un archivo .brum. La que te manden se abre con doble clic.</p></div>
+    <h2 id="herr-t">Para los que van a por todas.</h2>
+    <div class="herr-paso" data-herr-paso="0"><h3>Tus propios canales.</h3><p>Escribe una fórmula y Brum la dibuja: G combinada, solape de freno y acelerador, rake, balance por recorridos…</p></div>
+    <div class="herr-paso" data-herr-paso="1"><h3>Setups de AC y AC EVO.</h3><p>Lee y edita tus setups de Assetto Corsa y Assetto Corsa EVO con los rangos reales de cada coche, combustible y estrategia incluidos.</p></div>
+    <div class="herr-paso" data-herr-paso="2"><h3>Exporta y comparte.</h3><p>Pasa una tanda a MoTeC i2 o mándasela a otro piloto en un archivo .brum. La que te manden se abre con doble clic.</p></div>
   </div>
   <div class="herr-media">
     <div class="herr-marco" data-ui>
-      <img data-herr-img="0" src="assets/capturas/suspension-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Suspensión: recorrido e histogramas de velocidad del amortiguador por rueda">
-      <img data-herr-img="1" src="assets/capturas/canales-recorte-1240.webp" width="1240" height="800" loading="lazy" alt="Editor de canales matemáticos con la lista de canales y la fórmula">
-      <img data-herr-img="2" src="assets/capturas/setup-recorte-1770.webp" width="1770" height="890" loading="lazy" alt="Setup del Mazda MX-5 ND con combustible y estrategia de paradas">
-      <img data-herr-img="3" src="assets/capturas/historial-1600.webp" width="1600" height="814" loading="lazy" alt="Historial con la tabla de vueltas por sectores y la telemetría de Nürburgring">
+      <img data-herr-img="0" src="assets/capturas/canales-1600.webp" width="1600" height="814" loading="lazy" alt="Editor de canales matemáticos con la lista de canales y la fórmula">
+      <img data-herr-img="1" src="assets/capturas/setup-1600.webp" width="1600" height="814" loading="lazy" alt="Setup del Mazda MX-5 ND con combustible y estrategia de paradas">
+      <img data-herr-img="2" src="assets/capturas/historial-1600.webp" width="1600" height="814" loading="lazy" alt="Historial con la tabla de vueltas por sectores y la telemetría de Nürburgring">
     </div>
   </div>
 </section>
@@ -282,50 +465,87 @@
 <section class="sims" id="simuladores" aria-labelledby="sims-t">
   <div class="tablero">
     <div class="ficha ficha-cabeza" data-revela><h2 id="sims-t">Seis simuladores.</h2><p>Eliges el tuyo y Brum graba solo.</p></div>
-    <div class="ficha" data-revela><b>Assetto Corsa</b><span>Con Setup y ejercicios</span></div>
-    <div class="ficha" data-revela><b>Assetto Corsa EVO</b><span>Con ejercicios</span></div>
-    <div class="ficha" data-revela><b>Automobilista 2</b><span>Con ejercicios</span></div>
-    <div class="ficha" data-revela><b>rFactor 2</b><span>Con el plugin de memoria compartida</span></div>
-    <div class="ficha" data-revela><b>Le Mans Ultimate</b><span>Ejercicios: todavía no</span></div>
-    <div class="ficha" data-revela><b>iRacing</b><span>Ejercicios: todavía no</span></div>
+    <div class="ficha" data-revela><b>Assetto Corsa</b><span>Ejercicios y Setup</span></div>
+    <div class="ficha" data-revela><b>Assetto Corsa EVO</b><span>Ejercicios y Setup</span></div>
+    <div class="ficha" data-revela><b>Automobilista 2</b><span>Ejercicios</span></div>
+    <div class="ficha" data-revela><b>rFactor 2</b><span>Ejercicios, con el plugin de memoria compartida</span></div>
+    <div class="ficha" data-revela><b>Le Mans Ultimate</b><span>Telemetría. Ejercicios: todavía no</span></div>
+    <div class="ficha" data-revela><b>iRacing</b><span>Telemetría. Ejercicios: todavía no</span></div>
+    <div class="ficha ficha-proximo" data-revela>
+      <b>Coach con IA</b><span>A punto de llegar: una IA conectada a Brum que lee tus datos y te ayuda a entenderlos. Todavía no está en la app.</span>
+    </div>
     <div class="ficha ficha-comunidad" data-revela>
       <img src="assets/capturas/comunidad-800.webp" width="800" height="407" loading="lazy" alt="" aria-hidden="true">
-      <b>Comunidad</b><span>Próximamente: rankings por circuito y coche, ligas y rivales.</span>
+      <b>Comunidad</b><span>Ya está en la app, en desarrollo: rankings por circuito y coche, ligas y rivales.</span>
     </div>
-    <div class="ficha ficha-local" data-revela><b>Tus datos, en tu PC.</b><span>Para grabar y analizar no hace falta cuenta ni nube.</span></div>
+  </div>
+</section>
+
+<!-- ===================== EN DESARROLLO ===================== -->
+<section class="obras" id="obras" aria-labelledby="obras-t">
+  <div class="obras-texto" data-revela>
+    <h2 id="obras-t">Brum está en obras.</h2>
+    <p>Es un proyecto en desarrollo: tiene fallos y le faltan cosas. Lo que me cuentes decide qué se hace después, así que si algo no va, si echas algo en falta o tienes una idea, escríbeme.</p>
+    <div class="obras-acciones">
+      <a class="boton" href="mailto:angelrubioramos@gmail.com?subject=Feedback%20de%20Brum">Mandar feedback</a>
+      <a class="enlace-fuerte" href="https://ko-fi.com/angelrubioramos">O invítame a un café</a>
+    </div>
+    <p class="obras-nota">También desde la app: «Mándame feedback», en Inicio.</p>
+  </div>
+  <div class="trabajo" data-revela>
+    <h3>En lo que estoy trabajando</h3>
+    <ul>
+      <li class="tr-ia"><b>Coach con IA</b><span>A punto de llegar. Una IA conectada a Brum que lee tu telemetría y te ayuda a entender tus datos y qué hacer con ellos.</span></li>
+      <li><b>Cada curva con su número</b><span>Brum está aprendiendo dónde está cada curva de cada circuito, para que el coach te hable de «la curva 4» y no del metro 1250.</span></li>
+      <li><b>Comunidad</b><span>Ya está en la app y sigue en desarrollo: rankings por circuito y coche, ligas y rivales.</span></li>
+      <li><b>Lo que me pidas</b><span>Si algo falla o echas algo en falta, díselo desde la app.</span></li>
+    </ul>
+  </div>
+  <div class="versiones" data-ui data-versiones>
+    <p class="ver-cab"><b>Versiones</b><span>Desde el 30 de septiembre</span></p>
+    <ol>
+      <li><b>0.3.0</b><span>30/09</span></li>
+      <li><b>0.4.0</b><span>05/10</span></li>
+      <li><b>0.5.0</b><span>11/10</span></li>
+      <li><b>0.5.1</b><span>11/10</span></li>
+      <li><b>0.6.0</b><span>15/10</span></li>
+      <li class="ver-hoy"><b>0.6.1</b><span>15/10 · la de ahora</span></li>
+      <li class="ver-sig"><b>Lo siguiente</b><span>Coach con IA… y lo que pidas</span></li>
+    </ol>
   </div>
 </section>
 
 <!-- ===================== PIANOS ===================== -->
 <section class="pianos" aria-label="Cada metro cuenta">
   <img src="assets/fotos/pianos.webp" width="1920" height="600" loading="lazy" alt="" aria-hidden="true" data-parallax>
-  <p data-revela>Cada frenada, cada piano y cada metro quedan grabados. Lo que hagas con ellos ya es cosa tuya.</p>
+  <p data-revela>Cada frenada, cada piano y cada metro quedan grabados. Lo siguiente: una IA que te ayude a entenderlos.</p>
 </section>
 
 <!-- ===================== PREGUNTAS ===================== -->
 <section class="faq" id="preguntas" aria-labelledby="faq-t">
   <h2 id="faq-t">Antes de bajarla.</h2>
   <div class="faq-lista">
-    <details name="faq" open><summary>¿Cuánto cuesta?<i aria-hidden="true"></i></summary><p>Nada. Brum es gratis. Si te ayuda a ir más rápido, puedes <a href="https://ko-fi.com/angelrubioramos">invitarme a un café en Ko-fi</a>.</p></details>
+    <details name="faq" open><summary>Soy muy novato. ¿Me sirve?<i aria-hidden="true"></i></summary><p>Es justo para eso. Fundamentos está abierto desde el primer día y empieza por lo básico: salir desde parado, frenar siempre en el mismo sitio y no pisar fuera.</p></details>
+    <details name="faq"><summary>¿Cuánto cuesta?<i aria-hidden="true"></i></summary><p>Nada. Brum es gratis. Si te ayuda, puedes <a href="https://ko-fi.com/angelrubioramos">invitarme a un café en Ko-fi</a>.</p></details>
+    <details name="faq"><summary>¿Está terminada?<i aria-hidden="true"></i></summary><p>No. Está en desarrollo: tiene fallos y le faltan cosas. La Comunidad ya está, pero en pruebas, y el coach con IA, que te ayudará a entender tus datos, llegará pronto. Si algo falla, <a href="mailto:angelrubioramos@gmail.com?subject=Feedback%20de%20Brum">cuéntamelo</a>.</p></details>
     <details name="faq"><summary>¿Qué necesito?<i aria-hidden="true"></i></summary><p>Un PC con Windows 10 u 11 de 64 bits y uno de los seis simuladores. El instalador pesa unos 260 MB.</p></details>
     <details name="faq"><summary>Windows dice «Windows protegió tu PC».<i aria-hidden="true"></i></summary><p>Es normal: el instalador todavía no está firmado. Pulsa «Más información» y luego «Ejecutar de todas formas».</p></details>
-    <details name="faq"><summary>¿Mis datos salen de mi PC?<i aria-hidden="true"></i></summary><p>No. Las tandas y la telemetría se guardan en tu PC. Para grabar y analizar no hace falta cuenta ni conexión.</p></details>
+    <details name="faq"><summary>¿Mis datos salen de mi PC?<i aria-hidden="true"></i></summary><p>No. Las tandas y la telemetría se guardan en tu PC. Para grabar, entrenar y analizar no hace falta cuenta ni conexión.</p></details>
     <details name="faq"><summary>¿Necesito volante?<i aria-hidden="true"></i></summary><p>Brum lee lo que manda el simulador, así que graba igual con volante que con mando.</p></details>
     <details name="faq"><summary>¿rFactor 2 necesita algo más?<i aria-hidden="true"></i></summary><p>Sí: el plugin rF2SharedMemoryMapPlugin64.dll activado dentro del juego. Lo más fácil es instalarlo con SimHub o con Crew Chief.</p></details>
     <details name="faq"><summary>¿Cómo actualizo?<i aria-hidden="true"></i></summary><p>Descarga la versión nueva desde esta página e instálala encima. Tus tandas se quedan donde estaban.</p></details>
-    <details name="faq"><summary>¿Dónde mando fallos o ideas?<i aria-hidden="true"></i></summary><p>Desde la app, con «Mándame feedback» en Inicio, o a <a href="mailto:angelrubioramos@gmail.com?subject=Brum">angelrubioramos@gmail.com</a>.</p></details>
   </div>
 </section>
 
 <!-- ===================== DESCARGAR ===================== -->
 <section class="final" id="descargar" aria-labelledby="final-t">
   <div class="final-texto">
-    <h2 id="final-t">La próxima vuelta,<br>más rápida.</h2>
-    <p>Descárgala, instálala y dale a grabar en tu próxima tanda. Lo que pase después lo verás en verde y en rojo.</p>
+    <h2 id="final-t">Tu primer ejercicio,<br>hoy mismo.</h2>
+    <p>Descárgala, instálala y empieza por Fundamentos. Lo que pase después lo verás en verde y en rojo.</p>
     <ol class="pasos">
       <li>Descarga el instalador.</li>
       <li>Si Windows avisa, pulsa «Más información» y «Ejecutar de todas formas».</li>
-      <li>Abre Brum, elige <b data-paso-sim>Assetto Corsa</b> y pulsa Iniciar grabación.</li>
+      <li>Abre Brum, elige <b data-paso-sim>Assetto Corsa</b> y ve a Ejercicios.</li>
     </ol>
   </div>
   <form class="dialogo" data-ui data-dialogo action="https://github.com/aangeelr/brum/releases/latest/download/Brum-instalador.exe" method="get">
@@ -344,8 +564,8 @@
       <input type="text" value="Mi primera tanda" maxlength="40" data-dlg-nombre>
     </label>
     <fieldset class="dlg-seg"><legend>Para empezar</legend>
-      <label><input type="radio" name="modo" value="ahora" checked><span>Conducir ahora</span></label>
-      <label><input type="radio" name="modo" value="ya"><span>Usar vueltas que ya tengo</span></label>
+      <label><input type="radio" name="modo" value="ahora" checked><span>Un ejercicio</span></label>
+      <label><input type="radio" name="modo" value="ya"><span>Rodar libre</span></label>
     </fieldset>
     <p class="dlg-guardar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6" /></svg>Guardar la tanda <b data-dlg-prev>«Mi primera tanda»</b></p>
     <a class="boton boton-dlg" href="https://github.com/aangeelr/brum/releases/latest/download/Brum-instalador.exe">Descargar Brum 0.6.1</a>
@@ -358,18 +578,18 @@
 <!-- ===================== PIE ===================== -->
 <footer class="pie">
   <div class="pie-tab pie-frase">
-    <p>Brum · Sim Racing Academy. Gratis, para Windows, con tus datos en tu PC.</p>
+    <p>Brum · Sim Racing Academy. Gratis, para Windows, en desarrollo y con tus datos en tu PC.</p>
     <small>Assetto Corsa, Automobilista 2, rFactor 2, Le Mans Ultimate e iRacing son marcas de sus dueños. Brum no está afiliado a ellos.</small>
   </div>
   <nav class="pie-tab pie-nav" aria-label="Pie">
-    <a href="#como">Cómo funciona</a>
-    <a href="#academia">Academia</a>
-    <a href="#simuladores">Simuladores</a>
-    <a href="#preguntas">Preguntas</a>
+    <a href="#ejercicios">Ejercicios</a>
+    <a href="#niveles">Niveles</a>
+    <a href="#telemetria">Telemetría</a>
+    <a href="#obras">En desarrollo</a>
     <a href="#descargar">Descargar</a>
   </nav>
   <div class="pie-tab pie-version"><p>Versión 0.6.1</p><small>Windows 10 y 11 · 260 MB</small></div>
-  <div class="pie-tab pie-correo"><small>Fallos, ideas o lo que sea</small><a href="mailto:angelrubioramos@gmail.com?subject=Brum">angelrubioramos@gmail.com</a></div>
+  <div class="pie-tab pie-correo"><small>Fallos, ideas o lo que sea</small><a href="mailto:angelrubioramos@gmail.com?subject=Feedback%20de%20Brum">angelrubioramos@gmail.com</a></div>
   <div class="pie-tab pie-marca"><img src="assets/img/logo.png" width="1353" height="333" loading="lazy" alt="Brum · Sim Racing Academy"></div>
   <a class="pie-tab pie-kofi" href="https://ko-fi.com/angelrubioramos">
     <span>Invítame a un café</span>

@@ -24,41 +24,28 @@ VID = {"A": VIDEOS / "2026-10-15 20-33-54.mkv", "B": VIDEOS / "2026-10-15 20-53-
 APP_ASSETS = MOTOR / "pitwall" / "assets"
 TELEMETRIA = MOTOR / "BRUM-promo" / "assets" / "data" / "telemetria.json"
 DB = MOTOR / "brum-backups" / "datos-buenos-20261015" / "data" / "telemetry.db"
+# La vuelta de 1:14.847 (tanda 77, vuelta 8) con todos sus canales
+VUELTA = DB.parent / "telemetry" / "077-acevo-oulton-park-mazda-mx-5-nd-cup" / "077-oulton-park-mazda-mx-5-nd-cup-vuelta-08.parquet"
 OUT = WEB / "assets"
 
 # nombre -> (vídeo, segundo). Los segundos salen de mirar los vídeos a saltos de 5 s.
 CAPTURAS = {
     "envivo": ("A", 990),
-    "inicio": ("A", 15),
-    "comparador": ("B", 780),
-    "comparador-vueltas": ("B", 395),
-    "historial": ("B", 745),
-    "suspension": ("B", 425),
-    "dinamica": ("B", 440),
-    "canales": ("B", 490),
-    "ejercicios": ("B", 10),
     "ejercicio-ficha": ("B", 24),
     "ejercicio-evaluacion": ("B", 590),
     "licencia": ("B", 270),
-    "perfil": ("B", 160),
-    "tema-azul": ("B", 170),
-    "inicio-verde": ("B", 205),
-    "tienda": ("B", 88),
+    "suspension": ("B", 425),
+    "canales": ("B", 490),
     "setup": ("B", 100),
+    "historial": ("B", 745),
     "comunidad": ("B", 65),
+    "general": ("B", 392),
+    "neumaticos": ("B", 434),
+    "dinamica": ("B", 446),
 }
 VENTANA = (0, 33, 1920, 1010)  # fuera la barra de título de Windows y la barra de tareas
-DETALLES = {  # recortes a tamaño real, en píxeles del fotograma original: captura -> {nombre: caja}
-    "envivo": {"envivo-delta": (150, 368, 1890, 478), "envivo-sectores": (150, 492, 885, 840)},
-    "ejercicios": {"ej-niveles": (380, 380, 1100, 592)},
-    "ejercicio-evaluacion": {"ej-evaluacion": (420, 285, 1100, 628)},
-    "ejercicio-ficha": {"ej-ficha": (410, 140, 1590, 560)},
-    "licencia": {"licencia-recorte": (130, 120, 1900, 1010), "licencia-detalle": (130, 140, 830, 640)},
-    "inicio": {"racha": (250, 172, 1000, 507)},
-    "tienda": {"tienda-recorte": (140, 300, 1900, 1010)},
-    "tema-azul": {"tema-azul-recorte": (130, 130, 1010, 510)},
-    "canales": {"canales-recorte": (330, 100, 1570, 900)},
-    "setup": {"setup-recorte": (130, 120, 1900, 1010)},
+DETALLES = {  # recorte para la imagen de redes, en píxeles del fotograma original
+    "envivo": {"envivo-sectores": (150, 492, 885, 840)},
 }
 
 
@@ -75,7 +62,7 @@ def webp(im, nombre, anchos=(1600, 800)):
     carpeta.mkdir(parents=True, exist_ok=True)
     for ancho in anchos:
         copia = im if im.width <= ancho else im.resize((ancho, round(im.height * ancho / im.width)), Image.LANCZOS)
-        copia.save(carpeta / f"{nombre}-{ancho}.webp", quality=82, method=6)
+        copia.save(carpeta / f"{nombre}-{ancho}.webp", quality=90, method=6)
 
 
 def capturas():
@@ -122,10 +109,10 @@ def imagen_redes(logo):
         negra = fuentes / "segoeuib.ttf"
     f1 = ImageFont.truetype(str(negra), 60)
     f2 = ImageFont.truetype(str(fuentes / "bahnschrift.ttf"), 30)
-    d.text((64, 230), "Sabes que eres lento.", font=f1, fill="#F3F4F6")
-    d.text((64, 302), "Brum te dice dónde.", font=f1, fill="#FF5A00")
-    d.text((64, 448), "Telemetría · Comparador · Academia", font=f2, fill="#D1D5DB")
-    d.text((64, 492), "Gratis para Windows", font=f2, fill="#2ECC71")
+    d.text((64, 230), "Aprende a pilotar,", font=f1, fill="#F3F4F6")
+    d.text((64, 302), "ejercicio a ejercicio.", font=f1, fill="#FF5A00")
+    d.text((64, 448), "Academia de sim racing · Ejercicios · Telemetría", font=f2, fill="#D1D5DB")
+    d.text((64, 492), "Gratis para Windows · en desarrollo", font=f2, fill="#2ECC71")
     sect = Image.open(OUT / "capturas" / "envivo-sectores-735.webp").convert("RGB")
     sect.thumbnail((380, 380))
     sombra = Image.new("RGBA", (sect.width + 80, sect.height + 80), (0, 0, 0, 0))
@@ -187,6 +174,7 @@ def datos():
             "sectores": sectores,
         },
         "vivo": vivo,
+        "banco": banco(),
         "progreso": {
             "sim": "Assetto Corsa EVO", "circuito": "Brands Hatch", "coche": "Mini John Cooper S",
             "fechas": "9 y 10 de octubre de 2026", "vueltas": vueltas,
@@ -201,7 +189,47 @@ def datos():
     print("sectores", sectores, "| vueltas Brands", len(vueltas), "| muestras en vivo", len(vivo))
 
 
+def banco():
+    """Todos los canales de la vuelta de 1:14.847, para el banco de datos de la web.
+
+    muestras (unas 14 por segundo): [t, km/h, acelerador %, freno %, volante x100, marcha, G lateral, G longitudinal,
+    freno °C DI, DD, TI, TD, suspensión mm DI, DD, TI, TD]. neumaticos (una por segundo): [°C DI..TD, psi DI..TD].
+    """
+    import pyarrow.parquet as pq
+    v = pq.read_table(VUELTA).to_pydict()
+    muestras, neumaticos, seg = [], [], 0
+    for i in range(0, len(v["lap_time"]), 4):
+        x = v["extra"][i]
+        muestras.append([
+            round(v["lap_time"][i], 2), round(v["speed"][i] * 3.6), round(v["throttle"][i] * 100), round(v["brake"][i] * 100),
+            round(v["steer"][i] * 100), v["gear"][i], round(v["accel"][i][0], 2), round(v["accel"][i][1], 2),
+            *[round(b) for b in x["brake_temp"]], *[round(s) for s in x["suspension_travel"]],
+        ])
+    for i, t in enumerate(v["lap_time"]):
+        if t >= seg:
+            neumaticos.append([*[round(c, 1) for c in v["tyre_temps"][i]], *[round(p, 1) for p in v["tyre_press"][i]]])
+            seg += 1
+    return {"muestras": muestras, "neumaticos": neumaticos}
+
+
+def clip_delta():
+    """Bucle corto del delta y los sectores de En vivo: un tramo verde y uno rojo, a doble velocidad."""
+    (OUT / "video").mkdir(parents=True, exist_ok=True)
+    caja = "crop=1740:376:150:368,scale=1600:-2"
+    filtro = (
+        f"[0:v]trim=start=984:end=1004,setpts=(PTS-STARTPTS)/2,{caja},fps=30[a];"
+        f"[0:v]trim=start=846:end=858,setpts=(PTS-STARTPTS)/2,{caja},fps=30[b];"
+        "[a][b]concat=n=2:v=1:a=0[v]"
+    )
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(VID["A"]), "-filter_complex", filtro, "-map", "[v]", "-an",
+                    "-c:v", "libx264", "-preset", "slow", "-crf", "26", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+                    str(OUT / "video" / "delta.mp4")], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "1", "-i", str(OUT / "video" / "delta.mp4"), "-frames:v", "1",
+                    "-c:v", "libwebp", "-quality", "85", str(OUT / "video" / "delta-poster.webp")], check=True)
+
+
 if __name__ == "__main__":
     capturas()
     imagen_redes(marca())
+    clip_delta()
     datos()
