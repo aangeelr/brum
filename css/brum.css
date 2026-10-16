@@ -477,9 +477,9 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 
 /* ---------- Ráfaga: delta y sectores en vivo ---------- */
 .rafaga { position: relative; overflow: hidden; padding: clamp(48px, 7vw, 110px) var(--margen); background: var(--suelo); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; align-items: center; }
-.rafaga-video { grid-column: 4 / -1; grid-row: 1; transform: perspective(1600px) rotateY(-10deg) skewX(-4deg); border-radius: 12px; overflow: hidden; box-shadow: /* taste-skill-ignore: fragmento flotante en 3D, profundidad pedida por el usuario */ 0 0 0 1px #26292E, 0 60px 120px -40px rgba(0, 0, 0, 0.95); }
+.rafaga-video { grid-column: 5 / -1; grid-row: 1; transform: perspective(1600px) rotateY(-10deg) skewX(-4deg); border-radius: 12px; overflow: hidden; box-shadow: /* taste-skill-ignore: fragmento flotante en 3D, profundidad pedida por el usuario */ 0 0 0 1px #26292E, 0 60px 120px -40px rgba(0, 0, 0, 0.95); }
 .rafaga-video video { width: 100%; height: auto; }
-.rafaga-texto { grid-column: 1 / 6; grid-row: 1; position: relative; z-index: 1; padding: 28px 28px 28px 0; background: linear-gradient(90deg, var(--suelo) 70%, transparent); }
+.rafaga-texto { grid-column: 1 / 5; grid-row: 1; position: relative; z-index: 1; }
 .rafaga-texto h2 { font-size: clamp(30px, 3.4vw, 56px); font-stretch: 112%; }
 .rafaga-texto .g { color: var(--gana); }
 .rafaga-texto .p { color: var(--pierde); }
