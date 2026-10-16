@@ -775,7 +775,7 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .bc-pedal b { font-size: 17px; }
   .bc-pista { height: 56px; }
   .pest-rejilla { grid-template-columns: 1fr; }
-  .ej-fondo { display: none; }
+  .ej-fondo, .hud-fondo { width: 72%; right: -6%; top: -7%; transform: none; }
   .ej { padding: 14px; transform: none; }
   .ej-cab b { font-size: 22px; }
   .ej-obj { font-size: 15px; }
@@ -799,7 +799,6 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
   .medallas ul, .tienda-fila { grid-template-columns: 1fr; }
   .lic-cab, .med-cab, .ver-cab { flex-direction: column; gap: 4px; }
   .lic-cab span, .med-cab span, .ver-cab span { text-align: left; }
-  .hud-fondo { display: none; }
   .hud { padding: 10px; transform: none; }
   .hud-cab { margin-bottom: 8px; }
   .hud-titulo { font-size: 19px; }
