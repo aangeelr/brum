@@ -665,9 +665,9 @@
     const chips = $$("[data-ej-chips] li", ej);
     const meds = $$("[data-med]", ej);
     const E = { n: $("[data-ej-n]", ej), inv: $("[data-ej-inv]", ej), res: $("[data-ej-res]", ej) };
-    // Vueltas que se salen en cada intento de ejemplo (las reglas son las reales: Oro hasta 1, Plata 2, Bronce 3)
-    const INTENTOS = [[1, 3, 4, 6], [2, 5], [4]];
-    const estrellas = (inv) => (inv <= 1 ? 3 : inv === 2 ? 2 : inv === 3 ? 1 : 0);
+    // Vueltas que se salen en cada intento de ejemplo (las reglas son las reales: Oro ninguna, Plata 1, Bronce 2)
+    const INTENTOS = [[1, 3, 6], [4], []];
+    const estrellas = (inv) => (inv === 0 ? 3 : inv === 1 ? 2 : inv === 2 ? 1 : 0);
     const TEXTO = { 0: "Sin medalla. Mira la ficha y repite.", 1: "Bronce. Algo es algo.", 2: "Plata. A por el Oro.", 3: "¡Oro! Siguiente ejercicio." };
     let k = 0, timers = [], enVista = false, corriendo = false;
     const espera = (ms) => new Promise((r) => timers.push(setTimeout(r, ms)));
@@ -718,11 +718,11 @@
     const NIVEL = { 1: "Fundamentos", 2: "Técnica", 3: "Avanzado", 4: "Maestría" };
     // Sacado del catálogo de la app (src/brum/academia/exercises.py)
     const EJ = [
-      [1, "Standing Start", "Desde parado, llega a 150 km/h en menos de 16 s.", "La salida, el embrague y los cambios de marcha.", "1"],
+      [1, "Standing Start", "Desde parado, llega a 150 km/h en menos de 16,5 s.", "La salida, el embrague y los cambios de marcha.", "1"],
       [1, "Brake Marker", "Desde 200 km/h, empieza a frenar entre los metros 143 y 152.", "Frenar siempre en el mismo punto.", "1"],
-      [1, "Smooth Hands", "Una vuelta sin ninguna corrección de volante ni bloqueo de rueda, por debajo de 2:15.", "Suavidad y control del volante.", "1"],
-      [1, "Zero Lock", "5 vueltas sin bloquear, con una media por debajo de 2:06.", "Frenar limpio y controlar el límite.", "5"],
-      [1, "Track Limits", "8 vueltas seguidas con como mucho una invalidada por salida de pista.", "Respetar los límites de pista y guardar margen.", "8"],
+      [1, "Smooth Hands", "Una vuelta sin ninguna corrección de volante ni bloqueo de rueda, por debajo de 2:25.", "Suavidad y control del volante.", "1"],
+      [1, "Zero Lock", "5 vueltas sin bloquear, con una media por debajo de 2:45.", "Frenar limpio y controlar el límite.", "5"],
+      [1, "Track Limits", "8 vueltas seguidas sin que ninguna se invalide por salida de pista.", "Respetar los límites de pista y guardar margen.", "8"],
       [1, "Zero Overlap", "5 vueltas válidas sin pisar freno y acelerador a la vez.", "Soltar el acelerador del todo antes de frenar.", "5"],
       [2, "Late Braker", "Busca tu punto de frenada en la primera chicane y retrásalo 5 m en cada intento.", "Explorar el límite de frenada.", "1 por intento"],
       [2, "Entry vs Exit", "Un intento cuidando la entrada y otro cuidando la salida: compara cuál da mejor tiempo.", "Entender qué compensa en cada curva.", "2"],
@@ -733,7 +733,9 @@
       nivel: $("[data-f-nivel]", ficha), abre: $("[data-f-abre]", ficha), nombre: $("[data-f-nombre]", ficha), nombre2: $("[data-f-nombre2]", ficha),
       obj: $("[data-f-obj]", ficha), ent: $("[data-f-ent]", ficha), v: $("[data-f-v]", ficha),
     };
-    const botones = $$("[data-p]");
+    // Solo los botones: con "[data-p]" a secas entraban también las barras de sector del HUD de arriba, y el
+    // botón que se encendía era otro (tres más atrás) que el pulsado.
+    const botones = $$(".prob-b");
     function muestra(i) {
       const [niv, nombre, obj, ent, v] = EJ[i];
       botones.forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));

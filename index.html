@@ -116,25 +116,6 @@
   </figure>
 </section>
 
-<!-- ===================== RÁFAGA ===================== -->
-<section class="rafaga" aria-labelledby="rafaga-t">
-  <div class="rafaga-video" data-ui>
-    <video data-rafaga muted loop playsinline autoplay preload="metadata" poster="assets/video/delta-poster.webp" width="1600" height="346" aria-label="La barra de delta y los sectores de En vivo en una tanda real: primero en verde, luego en rojo">
-      <source src="assets/video/delta.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="rafaga-texto">
-    <h2 id="rafaga-t"><span class="g">Verde: vas más rápido.</span><br><span class="p">Rojo: la estás palmando.</span></h2>
-    <p>Así se ve En vivo mientras conduces: el delta contra tu mejor vuelta y cada sector, al momento. Tanda real, a doble velocidad.</p>
-  </div>
-  <div class="rafaga-sec" aria-label="Sectores de una vuelta real en Oulton Park contra la anterior: S1 −1.05, S2 +0.31, S3 −0.18; la vuelta, −0.93 s">
-    <div class="rs gana" style="--i:0"><small>S1</small><b>−1.05</b></div>
-    <div class="rs pierde" style="--i:1"><small>S2</small><b>+0.31</b></div>
-    <div class="rs gana" style="--i:2"><small>S3</small><b>−0.18</b></div>
-    <div class="rs gana rs-total" style="--i:3"><small>Vuelta</small><b>−0.93</b></div>
-  </div>
-</section>
-
 <!-- ===================== MARQUESINA ===================== -->
 <div class="marquesina" aria-hidden="true">
   <div class="mq mq-mal"><div class="mq-pista">
@@ -191,11 +172,11 @@
           <span class="nivel nivel-1">Fundamentos</span>
           <b>Track Limits</b><span class="ej-vueltas">8 vueltas</span>
         </div>
-        <p class="ej-obj" aria-hidden="true"><b>Objetivo:</b> 8 vueltas seguidas con como mucho una invalidada por salida de pista.</p>
+        <p class="ej-obj" aria-hidden="true"><b>Objetivo:</b> 8 vueltas seguidas sin que ninguna se invalide por salida de pista.</p>
         <div class="ej-medallas" aria-hidden="true">
-          <div class="med med-oro" data-med="3"><i>★★★</i><b>Oro</b><span>hasta 1 fuera</span></div>
-          <div class="med med-plata" data-med="2"><i>★★</i><b>Plata</b><span>hasta 2</span></div>
-          <div class="med med-bronce" data-med="1"><i>★</i><b>Bronce</b><span>hasta 3</span></div>
+          <div class="med med-oro" data-med="3"><i>★★★</i><b>Oro</b><span>ninguna fuera</span></div>
+          <div class="med med-plata" data-med="2"><i>★★</i><b>Plata</b><span>1 fuera</span></div>
+          <div class="med med-bronce" data-med="1"><i>★</i><b>Bronce</b><span>2 fuera</span></div>
         </div>
         <div class="ej-intento" aria-hidden="true">
           <div class="ej-intento-cab"><b data-ej-n>Intento 1</b><span>Invalidadas <b data-ej-inv>0</b></span></div>
@@ -406,13 +387,32 @@
 <section class="pestanas" aria-labelledby="pest-t">
   <div class="pest-cab" data-revela>
     <h2 id="pest-t">Siete pestañas para mirarlo con lupa.</h2>
-    <p>Después de la tanda, el Historial lo ordena todo: General, Suspensión, Neumáticos y frenos, Dinámica, Fiabilidad, Pista y ayudas y Matemáticos. Y los gráficos X-Y que quieras, como el diagrama GG.</p>
+    <p>Después de la tanda, el Historial lo ordena todo: General, Suspensión, Neumáticos y frenos, Dinámica, Fiabilidad, Pista y ayudas y Matemáticos. Y los gráficos X-Y que quieras, como el diagrama GG. Encima de cualquiera puedes dibujar flechas, rayas y notas, y se quedan con la tanda.</p>
   </div>
   <div class="pest-rejilla">
     <figure class="pest" data-revela><a href="assets/capturas/general-1600.webp"><img src="assets/capturas/general-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña General comparando tres vueltas: delta, velocidad, volante, freno y acelerador"></a><figcaption><b>General</b>Tres vueltas una encima de otra: delta, velocidad, volante, freno y acelerador.</figcaption></figure>
     <figure class="pest" data-revela><a href="assets/capturas/neumaticos-1600.webp"><img src="assets/capturas/neumaticos-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Neumáticos y frenos: temperatura por zonas de cada rueda, del núcleo y presión"></a><figcaption><b>Neumáticos y frenos</b>Temperatura de cada neumático por zonas, la del núcleo y la presión. También frenos, carga y caída.</figcaption></figure>
     <figure class="pest" data-revela><a href="assets/capturas/dinamica-1600.webp"><img src="assets/capturas/dinamica-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Dinámica: G lateral, G longitudinal, giro del coche y deslizamiento de rueda"></a><figcaption><b>Dinámica</b>G lateral y longitudinal, giro del coche y deslizamiento de cada rueda.</figcaption></figure>
     <figure class="pest" data-revela><a href="assets/capturas/suspension-1600.webp"><img src="assets/capturas/suspension-1600.webp" width="1600" height="814" loading="lazy" alt="Pestaña Suspensión: recorrido e histogramas de velocidad del amortiguador por rueda"></a><figcaption><b>Suspensión</b>Recorrido de cada rueda y los histogramas de velocidad y recorrido del amortiguador.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ===================== RÁFAGA ===================== -->
+<section class="rafaga" aria-labelledby="rafaga-t">
+  <div class="rafaga-video" data-ui>
+    <video data-rafaga muted loop playsinline autoplay preload="metadata" poster="assets/video/delta-poster.webp" width="1600" height="346" aria-label="La barra de delta y los sectores de En vivo en una tanda real: primero en verde, luego en rojo">
+      <source src="assets/video/delta.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="rafaga-texto">
+    <h2 id="rafaga-t"><span class="g">Verde: vas más rápido.</span><br><span class="p">Rojo: la estás palmando.</span></h2>
+    <p>Así se ve En vivo mientras conduces: el delta contra tu mejor vuelta y cada sector, al momento. Tanda real, a doble velocidad.</p>
+  </div>
+  <div class="rafaga-sec" aria-label="Sectores de una vuelta real en Oulton Park contra la anterior: S1 −1.05, S2 +0.31, S3 −0.18; la vuelta, −0.93 s">
+    <div class="rs gana" style="--i:0"><small>S1</small><b>−1.05</b></div>
+    <div class="rs pierde" style="--i:1"><small>S2</small><b>+0.31</b></div>
+    <div class="rs gana" style="--i:2"><small>S3</small><b>−0.18</b></div>
+    <div class="rs gana rs-total" style="--i:3"><small>Vuelta</small><b>−0.93</b></div>
   </div>
 </section>
 
@@ -480,15 +480,21 @@
 <section class="herr" id="herramientas" data-herr aria-labelledby="herr-t">
   <div class="herr-lista">
     <h2 id="herr-t">Para los que van a por todas.</h2>
-    <div class="herr-paso" data-herr-paso="0"><h3>Tus propios canales.</h3><p>Escribe una fórmula y Brum la dibuja: G combinada, solape de freno y acelerador, rake, balance por recorridos…</p></div>
-    <div class="herr-paso" data-herr-paso="1"><h3>Setups de AC y AC EVO.</h3><p>Lee y edita tus setups de Assetto Corsa y Assetto Corsa EVO con los rangos reales de cada coche, combustible y estrategia incluidos.</p></div>
-    <div class="herr-paso" data-herr-paso="2"><h3>Exporta y comparte.</h3><p>Pasa una tanda a MoTeC i2 o mándasela a otro piloto en un archivo .brum. La que te manden se abre con doble clic.</p></div>
+    <div class="herr-paso" data-herr-paso="0"><h3>La tanda entera, de un vistazo.</h3><p>Vuelta a vuelta: cada tiempo contra tu mejor, la media y la ideal, la tendencia, la degradación y el consumo. ¿Un trompo o un repostaje? Un botón y esa vuelta deja de contar en las cuentas.</p></div>
+    <div class="herr-paso" data-herr-paso="1"><h3>Tu estrategia de carrera.</h3><p>Dile cuánto dura la carrera, en vueltas o en minutos, y con el ritmo y el consumo de tu tanda Brum te dice cuántas vueltas salen, cuánta gasolina meter con una de margen y cuánto caerá el ritmo.</p></div>
+    <div class="herr-paso" data-herr-paso="2"><h3>Curva a curva.</h3><p>Cada vuelta partida en las curvas del circuito: el tiempo de cada una, tu vuelta teórica y en qué curva se te va cada décima.</p></div>
+    <div class="herr-paso" data-herr-paso="3"><h3>Tus propios canales.</h3><p>Escribe una fórmula y Brum la dibuja: G combinada, solape de freno y acelerador, rake, balance por recorridos…</p></div>
+    <div class="herr-paso" data-herr-paso="4"><h3>Setups de AC y AC EVO.</h3><p>Lee y edita tus setups de Assetto Corsa y Assetto Corsa EVO con los rangos reales de cada coche, combustible y estrategia incluidos.</p></div>
+    <div class="herr-paso" data-herr-paso="5"><h3>Exporta y comparte.</h3><p>Pasa una tanda a MoTeC i2 o mándasela a otro piloto en un archivo .brum. La que te manden se abre con doble clic.</p></div>
   </div>
   <div class="herr-media">
     <div class="herr-marco" data-ui>
-      <img data-herr-img="0" src="assets/capturas/canales-1600.webp" width="1600" height="814" loading="lazy" alt="Editor de canales matemáticos con la lista de canales y la fórmula">
-      <img data-herr-img="1" src="assets/capturas/setup-1600.webp" width="1600" height="814" loading="lazy" alt="Setup del Mazda MX-5 ND con combustible y estrategia de paradas">
-      <img data-herr-img="2" src="assets/capturas/historial-1600.webp" width="1600" height="814" loading="lazy" alt="Historial con la tabla de vueltas por sectores y la telemetría de Nürburgring">
+      <img data-herr-img="0" src="assets/capturas/vuelta-a-vuelta-1600.webp" width="1600" height="814" loading="lazy" alt="Vuelta a vuelta de una tanda de 38 vueltas en Cascavel: el tiempo de cada vuelta con la mejor, la media y la ideal, y la vuelta 24 fuera de las estimaciones">
+      <img data-herr-img="1" src="assets/capturas/carrera-1600.webp" width="1600" height="814" loading="lazy" alt="La cuenta de una carrera de 45 minutos: 32 vueltas, 31 litros y 32 con una vuelta de margen">
+      <img data-herr-img="2" src="assets/capturas/sectores-1600.webp" width="1600" height="814" loading="lazy" alt="Sectores por curva: el tiempo de cada vuelta en cada curva y la vuelta teórica">
+      <img data-herr-img="3" src="assets/capturas/canales-1600.webp" width="1600" height="814" loading="lazy" alt="Editor de canales matemáticos con la lista de canales y la fórmula">
+      <img data-herr-img="4" src="assets/capturas/setup-1600.webp" width="1600" height="814" loading="lazy" alt="Setup del Mazda MX-5 ND con combustible y estrategia de paradas">
+      <img data-herr-img="5" src="assets/capturas/historial-1600.webp" width="1600" height="814" loading="lazy" alt="Historial con la tabla de vueltas por sectores y la telemetría de Nürburgring">
     </div>
   </div>
 </section>
