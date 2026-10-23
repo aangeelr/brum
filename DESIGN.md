@@ -233,7 +233,7 @@ Cromo de página con esquinas vivas (0px): botones, chips, teselas, preguntas, e
 
 El inicio explica que es una beta ya usable y en construcción; se repite junto a la descarga, en preguntas y en el pie.
 El historial conserva las versiones y fechas reales en un visor de 300px, con la actual arriba y scroll para consultar las anteriores.
-Al entrar en pantalla una vez, el carrete baja rápidamente y frena con un pequeño rebote en la versión actual (1900ms, solo transform, WAAPI).
+Al entrar en pantalla una vez, el carrete baja y frena en la versión actual. Tras una pausa, la 1.0 con ojos intenta colarse: la actual la despide con un guante. La 1.0 vuelve a asomar, ve el guante preparado y se esconde (4800ms, transform y opacity, WAAPI). Un botón permite repetirlo; «1.0 en camino» deja claro que aún no es una versión publicada.
 Movimiento reducido muestra directamente la versión actual. Pausa e interacción con el historial cancelan el movimiento.
 Las cifras de descargas permanecen dentro de un desplegable discreto al final; `?estadisticas=1#estadisticas` lo abre y lleva hasta él.
 

@@ -657,6 +657,24 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .enlace-fuerte { font-size: 18px; font-weight: 700; text-underline-offset: 0.25em; }
 .obras-nota { margin-top: 18px; font-size: 15px; color: var(--apagado); }
 .versiones { grid-column: 8 / -1; align-self: start; }
+.ver-repetir { margin-left: auto; border: 0; background: var(--sup-2); padding: 10px; cursor: pointer; color: var(--tinta); }
+.ver-repetir svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+.ver-teatro { position: relative; overflow: clip; margin-top: 22px; }
+.ver-teatro .ver-ventana { margin-top: 0; }
+.ver-intrusa { position: absolute; top: 0; right: 0; width: 55%; height: 55px; display: flex; align-items: center; justify-content: space-around; background: var(--tinta); color: var(--suelo); transform: translateX(125%) rotate(12deg); visibility: hidden; z-index: 3; }
+.ver-intrusa b { font-size: 28px; }
+.ver-ojos { display: flex; gap: 4px; align-items: center; }
+.ver-ojos i { display: block; width: 16px; height: 22px; border-radius: 50%; background: white; border: 1px solid var(--suelo); position: relative; }
+.ver-ojos i::after { content: ""; position: absolute; width: 7px; height: 9px; border-radius: 50%; background: var(--suelo); top: 6px; right: 1px; }
+.ver-intrusa .ver-ojos i::after { right: auto; left: 1px; }
+.ver-hoy .ver-ojos { position: absolute; left: 100px; top: 16px; opacity: 0; }
+.ver-guante { position: absolute; right: 30%; top: -3px; width: 100px; height: 60px; color: var(--naranja); opacity: 0; z-index: 4; pointer-events: none; }
+.ver-broma .ver-hoy { z-index: 4; background: transparent; }
+.ver-broma .ver-hoy > span:not(.ver-ojos) { opacity: 0; }
+.ver-broma .ver-hoy .ver-ojos { opacity: 1; }
+.ver-broma .ver-intrusa { visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .ver-repetir { display: none; } }
+.quieto .ver-repetir { display: none; }
 .ver-ventana { height: 300px; overflow-y: auto; overflow-x: clip; margin-top: 22px; overscroll-behavior: contain; scrollbar-width: thin; }
 .versiones ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column-reverse; gap: 2px; }
 .versiones ol::before, .versiones ol::after { content: ""; position: absolute; left: 7px; top: 22px; width: 2px; background: #33373E; height: calc(100% - 44px); }

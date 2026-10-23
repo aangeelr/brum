@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://aangeelr.github.io/brum/assets/img/redes.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/archivo-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/brum.css?v=20261023b">
+<link rel="stylesheet" href="css/brum.css?v=20261023c">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -541,7 +541,8 @@
     </ul>
   </div>
   <div class="versiones" data-ui data-versiones>
-    <p class="ver-cab"><b>Versiones</b><span>Desde el 30 de septiembre</span></p>
+    <p class="ver-cab"><b>Versiones</b><button class="ver-repetir" type="button" aria-label="Repetir la animación de versiones" title="Otra vez" data-ver-repetir><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 8a8 8 0 1 0 1 7M19 3v6h-6"/></svg></button></p>
+    <div class="ver-teatro">
     <div class="ver-ventana" tabindex="0" role="region" aria-label="Historial de versiones, de la actual a las anteriores">
     <ol>
       <li><b>0.3.0</b><span>30/09</span></li>
@@ -559,10 +560,12 @@
       <li><b>0.7.5</b><span>21/10</span></li>
       <li><b>0.8.0</b><span>21/10</span></li>
       <li><b>0.8.1</b><span>22/10</span></li>
-      <li class="ver-hoy"><b>0.8.2</b><span>23/10 · la de ahora</span></li>
+      <li class="ver-hoy"><b>0.8.2</b><span>23/10 · la de ahora</span><span class="ver-ojos" aria-hidden="true"><i></i><i></i></span><svg class="ver-guante" viewBox="0 0 100 60" aria-hidden="true"><path d="M0 29h47v14H0z" fill="currentColor"/><path d="M48 19q0-9 10-9h21q11 0 11 12v8q10 1 7 11l-4 9H57q-10 0-10-10z" fill="currentColor" stroke="#0B0B0B" stroke-width="3"/><path d="M67 14v12m12-12v12M57 33h20" fill="none" stroke="#0B0B0B" stroke-width="3"/></svg></li>
     </ol>
     </div>
-    <p class="ver-siguiente"><b>Lo siguiente</b><span>Coach con IA… y lo que pidas</span></p>
+    <div class="ver-intrusa" aria-hidden="true"><b>1.0</b><span class="ver-ojos"><i></i><i></i></span></div>
+    </div>
+    <p class="ver-siguiente"><b>1.0 en camino</b><span>Coach con IA… y lo que pidas</span></p>
   </div>
 </section>
 
@@ -655,7 +658,7 @@
 </footer>
 
 <script src="js/datos.js" defer></script>
-<script src="js/brum.js?v=20261023b" defer></script>
+<script src="js/brum.js?v=20261023c" defer></script>
 <script src="js/descargas.js?v=20261023b" defer></script>
 </body>
 </html>

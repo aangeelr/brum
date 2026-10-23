@@ -784,27 +784,75 @@
   const ver = $("[data-versiones]");
   if (ver) {
     const ventana = $(".ver-ventana", ver), lista = $("ol", ver);
-    let carrete;
-    const termina = () => { if (carrete) { carrete.cancel(); carrete = null; } };
+    const actual = $(".ver-hoy", ver), intrusa = $(".ver-intrusa", ver), guante = $(".ver-guante", ver);
+    const preferencia = matchMedia("(prefers-reduced-motion: reduce)");
+    let animaciones = [];
+    const termina = () => {
+      animaciones.forEach((a) => a.cancel());
+      animaciones = [];
+      ver.classList.remove("ver-broma");
+    };
+    const reproduceVersiones = () => {
+      termina();
+      if (preferencia.matches || quieto() || !lista.animate) return;
+      ventana.scrollTop = 0;
+      ver.classList.add("ver-broma");
+      const distancia = Math.max(0, lista.scrollHeight - ventana.clientHeight);
+      const anima = (elemento, frames) => {
+        const a = elemento.animate(frames, { duration: 4800 });
+        animaciones.push(a);
+        return a;
+      };
+      // Preparación: demasiadas versiones. Pausa. Remate: la 1.0 quiere colarse dos veces.
+      anima(lista, [
+        { transform: `translateY(-${distancia}px)`, offset: 0, easing: "linear" },
+        { transform: `translateY(-${distancia * 0.12}px)`, offset: 0.22, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
+        { transform: "translateY(10px)", offset: 0.32 },
+        { transform: "translateY(0)", offset: 0.36 },
+        { transform: "translateY(0)", offset: 1 }
+      ]).onfinish = termina;
+      anima(intrusa, [
+        { transform: "translateX(125%) rotate(12deg)", offset: 0 },
+        { transform: "translateX(125%) rotate(12deg)", offset: 0.42, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
+        { transform: "translateX(0) rotate(-8deg)", offset: 0.51 },
+        { transform: "translateX(0) rotate(-8deg)", offset: 0.57 },
+        { transform: "translate(150%, -80%) rotate(95deg)", offset: 0.65 },
+        { transform: "translateX(125%) rotate(0deg)", offset: 0.74 },
+        { transform: "translateX(50%) rotate(-12deg)", offset: 0.84 },
+        { transform: "translateX(50%) rotate(-12deg)", offset: 0.88 },
+        { transform: "translateX(125%) rotate(12deg)", offset: 0.94 },
+        { transform: "translateX(125%) rotate(12deg)", offset: 1 }
+      ]);
+      anima(actual, [
+        { transform: "translateX(0)", offset: 0 },
+        { transform: "translateX(0)", offset: 0.51 },
+        { transform: "translateX(-25px) rotate(-3deg)", offset: 0.55 },
+        { transform: "translateX(20px) rotate(2deg)", offset: 0.58 },
+        { transform: "translateX(0)", offset: 0.64 },
+        { transform: "translateX(0)", offset: 1 }
+      ]);
+      anima(guante, [
+        { opacity: 0, transform: "translateX(-35px)", offset: 0 },
+        { opacity: 0, transform: "translateX(-35px)", offset: 0.55 },
+        { opacity: 1, transform: "translateX(0)", offset: 0.57 },
+        { opacity: 1, transform: "translateX(18px)", offset: 0.6 },
+        { opacity: 0, transform: "translateX(-35px)", offset: 0.67 },
+        { opacity: 0, transform: "translateX(-35px)", offset: 0.83 },
+        { opacity: 1, transform: "translateX(0) rotate(-15deg)", offset: 0.87 },
+        { opacity: 1, transform: "translateX(0) rotate(-15deg)", offset: 0.94 },
+        { opacity: 0, transform: "translateX(-35px)", offset: 1 }
+      ]);
+    };
     new IntersectionObserver((ents, obs) => {
       if (!ents[0].isIntersecting) return;
       obs.disconnect();
-      if (menosMov || quieto() || !lista.animate) return;
-      const distancia = Math.max(0, lista.scrollHeight - ventana.clientHeight);
-      if (!distancia) return;
-      carrete = lista.animate([
-        { transform: `translateY(-${distancia}px)`, offset: 0, easing: "linear" },
-        { transform: `translateY(-${distancia * 0.22}px)`, offset: 0.5, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
-        { transform: "translateY(12px)", offset: 0.84, easing: "ease-in-out" },
-        { transform: "translateY(-4px)", offset: 0.94, easing: "ease-out" },
-        { transform: "translateY(0)", offset: 1 }
-      ], { duration: 1900 });
-      carrete.onfinish = termina;
+      reproduceVersiones();
     }, { threshold: 0.5 }).observe(ver);
     // La lectura y los controles de pausa siempre interrumpen el chiste.
     ["wheel", "touchstart", "keydown", "pointerdown"].forEach((evento) => ventana.addEventListener(evento, termina, { passive: true }));
     document.addEventListener("brum:sigue", () => { if (quieto()) termina(); });
-    matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => { if (e.matches) termina(); });
+    preferencia.addEventListener("change", (e) => { if (e.matches) termina(); });
+    $("[data-ver-repetir]", ver).addEventListener("click", reproduceVersiones);
   }
 
   // ---------- Temas HUD de la Tienda: la web se pone sus colores ----------
