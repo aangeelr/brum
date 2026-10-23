@@ -130,6 +130,8 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .linea { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
 .linea > span { display: inline-block; }
 .inicio-abajo { grid-column: 1 / 5; grid-row: 2; display: flex; flex-direction: column; gap: 40px; padding-top: 24px; }
+.inicio-beta { font-size: 17px; line-height: 1.5; color: var(--tinta-2); max-width: 48ch; margin-top: -20px; }
+.inicio-beta strong { display: block; color: var(--tinta); }
 .entrada { font-size: clamp(20px, 1.6vw, 24px); line-height: 1.4; max-width: 30ch; }
 .accion { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
 .nota { font-family: var(--f-num); font-size: 15px; color: var(--apagado); }
@@ -440,6 +442,9 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .pie-kofi:active { transform: scale(0.99); }
 @media (hover: hover) and (pointer: fine) { .pie-kofi:hover { background: var(--naranja-vivo); } .pie-kofi:hover svg { transform: translate(6px, -6px); } }
 .pie-creditos { grid-column: 1 / -1; max-width: 75ch; padding: 16px; font-size: 14px; color: var(--apagado); }
+.pie-estadisticas { grid-column: 1 / -1; padding: 16px; color: var(--apagado); font-size: 14px; max-width: 75ch; }
+.pie-estadisticas summary { cursor: pointer; min-height: 44px; padding-block: 10px; }
+.pie-estadisticas p { color: var(--tinta-2); padding-bottom: 16px; }
 
 /* ---------- Inicio: el ejercicio ---------- */
 .inicio-ej { grid-column: 6 / -1; grid-row: 2; perspective: 1800px; margin: 0; }
@@ -652,16 +657,19 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .enlace-fuerte { font-size: 18px; font-weight: 700; text-underline-offset: 0.25em; }
 .obras-nota { margin-top: 18px; font-size: 15px; color: var(--apagado); }
 .versiones { grid-column: 8 / -1; align-self: start; }
-.versiones ol { position: relative; list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 2px; }
+.ver-ventana { height: 300px; overflow-y: auto; overflow-x: clip; margin-top: 22px; overscroll-behavior: contain; scrollbar-width: thin; }
+.versiones ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column-reverse; gap: 2px; }
 .versiones ol::before, .versiones ol::after { content: ""; position: absolute; left: 7px; top: 22px; width: 2px; background: #33373E; height: calc(100% - 44px); }
-.versiones ol::after { background: var(--naranja); transform-origin: 50% 0; transform: scaleY(0); transition: transform 1800ms var(--ease-out); }
-.versiones.visto ol::after { transform: scaleY(0.83); }
+.versiones ol::after { display: none; }
 .versiones li { position: relative; display: flex; justify-content: space-between; gap: 16px; padding: 12px 0 12px 34px; }
-.versiones li::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: #101114; box-shadow: inset 0 0 0 2px #33373E; transition: background-color 300ms ease, box-shadow 300ms ease; transition-delay: calc(var(--i, 0) * 240ms); }
-.versiones.visto li::before { background: var(--naranja); box-shadow: inset 0 0 0 2px var(--naranja); }
+.versiones li::before { content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: #101114; box-shadow: inset 0 0 0 2px #33373E; }
 .versiones li b { font-size: 20px; }
 .versiones li span { color: var(--apagado); font-size: 15px; text-align: right; }
 .versiones .ver-hoy b { color: var(--naranja); }
+.versiones .ver-hoy { background: var(--sup-2); }
+.versiones .ver-hoy::before { background: var(--naranja); box-shadow: none; }
+.ver-siguiente { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; margin-top: 24px; padding-top: 16px; }
+.ver-siguiente span { font-size: 15px; color: var(--apagado); }
 .versiones .ver-sig::before, .versiones.visto .ver-sig::before { background: #101114; box-shadow: inset 0 0 0 2px var(--apagado); }
 .versiones .ver-sig b { font-family: var(--f-texto); font-style: italic; font-weight: 800; color: var(--tinta-2); }
 

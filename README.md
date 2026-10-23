@@ -30,13 +30,14 @@ gh release create v0.6.1 "Brum-instalador.exe" --title "Brum 0.6.1" --notes "...
 
 ## Consultar descargas (oculto en la web normal)
 
-Abre `https://aangeelr.github.io/brum/?estadisticas=1` y ve al final de la página.
+Abre `https://aangeelr.github.io/brum/?estadisticas=1#estadisticas`: abre el contador y te lleva hasta él.
+También puedes desplegar «Estadísticas de descargas» al final de la web normal; las cifras están ocultas hasta abrirlo.
 El contador suma las descargas de `Brum-instalador.exe` de todas las releases disponibles,
 incluidas las anteriores a este cambio. GitHub cuenta las descargas sin depender del JavaScript de la web.
 No cuenta usuarios únicos ni instalaciones y también incluye descargas desde fuera de la web.
 Si se borra o sustituye un archivo de una release, se pierde su cuenta anterior.
 El parámetro oculta la cifra a los visitantes habituales; no es una contraseña: los datos de GitHub son públicos.
-Sin el parámetro no se muestra el contador ni se consulta la API. Si GitHub falla o limita las consultas,
+Sin el parámetro ni abrir el desplegable no se muestra la cifra ni se consulta la API. Si GitHub falla o limita las consultas,
 se muestra un aviso en lugar de un cero engañoso.
 
 Comprobación: `node --test tools/descargas.test.cjs`.

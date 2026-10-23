@@ -783,8 +783,28 @@
   // ---------- Versiones ----------
   const ver = $("[data-versiones]");
   if (ver) {
-    $$("li", ver).forEach((li, i) => li.style.setProperty("--i", i));
-    new IntersectionObserver((ents, obs) => { if (ents[0].isIntersecting) { obs.disconnect(); ver.classList.add("visto"); } }, { threshold: 0.4 }).observe(ver);
+    const ventana = $(".ver-ventana", ver), lista = $("ol", ver);
+    let carrete;
+    const termina = () => { if (carrete) { carrete.cancel(); carrete = null; } };
+    new IntersectionObserver((ents, obs) => {
+      if (!ents[0].isIntersecting) return;
+      obs.disconnect();
+      if (menosMov || quieto() || !lista.animate) return;
+      const distancia = Math.max(0, lista.scrollHeight - ventana.clientHeight);
+      if (!distancia) return;
+      carrete = lista.animate([
+        { transform: `translateY(-${distancia}px)`, offset: 0, easing: "linear" },
+        { transform: `translateY(-${distancia * 0.22}px)`, offset: 0.5, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
+        { transform: "translateY(12px)", offset: 0.84, easing: "ease-in-out" },
+        { transform: "translateY(-4px)", offset: 0.94, easing: "ease-out" },
+        { transform: "translateY(0)", offset: 1 }
+      ], { duration: 1900 });
+      carrete.onfinish = termina;
+    }, { threshold: 0.5 }).observe(ver);
+    // La lectura y los controles de pausa siempre interrumpen el chiste.
+    ["wheel", "touchstart", "keydown", "pointerdown"].forEach((evento) => ventana.addEventListener(evento, termina, { passive: true }));
+    document.addEventListener("brum:sigue", () => { if (quieto()) termina(); });
+    matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => { if (e.matches) termina(); });
   }
 
   // ---------- Temas HUD de la Tienda: la web se pone sus colores ----------

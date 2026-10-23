@@ -4,12 +4,19 @@ const { readFileSync } = require('node:fs');
 const { runInNewContext } = require('node:vm');
 const source = readFileSync(require('node:path').join(__dirname, '../js/descargas.js'), 'utf8');
 
-async function consultar(search, fetch) {
+async function consultar(search, fetch, abrir = false) {
   const contador = { hidden: true, textContent: '' };
+  let toggle;
+  const panel = { open: false, addEventListener(evento, callback) { toggle = callback; }, scrollIntoView() {} };
   await runInNewContext(source, {
     window: { location: { search } }, URLSearchParams, AbortSignal,
-    document: { querySelector: () => contador }, fetch
+    document: { querySelector: (s) => s === '[data-descargas]' ? contador : panel }, fetch
   });
+  if (abrir) {
+    panel.open = true;
+    toggle();
+    await new Promise(setImmediate);
+  }
   return contador;
 }
 
@@ -19,6 +26,12 @@ test('la visita normal no muestra cifras ni consulta GitHub', async () => {
     assert.equal(contador.hidden, true);
     assert.equal(contador.textContent, '');
   }
+});
+
+test('el desplegable permite consultar sin enlace especial', async () => {
+  const contador = await consultar('', async () => ({ ok: true, json: async () => [] }), true);
+  assert.equal(contador.hidden, false);
+  assert.match(contador.textContent, /Descargas del instalador: 0/);
 });
 
 test('suma todas las páginas, solo el instalador, sin borradores', async () => {
