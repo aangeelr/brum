@@ -28,6 +28,19 @@ Con la CLI de GitHub:
 gh release create v0.6.1 "Brum-instalador.exe" --title "Brum 0.6.1" --notes "..."
 ```
 
+## Consultar descargas (oculto en la web normal)
+
+Abre `https://aangeelr.github.io/brum/?estadisticas=1` y ve al final de la página.
+El contador suma las descargas de `Brum-instalador.exe` de todas las releases disponibles,
+incluidas las anteriores a este cambio. GitHub cuenta las descargas sin depender del JavaScript de la web.
+No cuenta usuarios únicos ni instalaciones y también incluye descargas desde fuera de la web.
+Si se borra o sustituye un archivo de una release, se pierde su cuenta anterior.
+El parámetro oculta la cifra a los visitantes habituales; no es una contraseña: los datos de GitHub son públicos.
+Sin el parámetro no se muestra el contador ni se consulta la API. Si GitHub falla o limita las consultas,
+se muestra un aviso en lugar de un cero engañoso.
+
+Comprobación: `node --test tools/descargas.test.cjs`.
+
 ## Regenerar capturas y datos
 
 ```bash
