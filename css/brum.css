@@ -673,7 +673,6 @@ html.quieto *, html.quieto *::before, html.quieto *::after { animation-play-stat
 .ver-broma .ver-hoy > span:not(.ver-ojos) { opacity: 0; }
 .ver-broma .ver-hoy .ver-ojos { opacity: 1; }
 .ver-broma .ver-intrusa { visibility: visible; }
-@media (prefers-reduced-motion: reduce) { .ver-repetir { display: none; } }
 .quieto .ver-repetir { display: none; }
 .ver-ventana { height: 300px; overflow-y: auto; overflow-x: clip; margin-top: 22px; overscroll-behavior: contain; scrollbar-width: thin; }
 .versiones ol { position: relative; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column-reverse; gap: 2px; }

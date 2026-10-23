@@ -792,9 +792,9 @@
       animaciones = [];
       ver.classList.remove("ver-broma");
     };
-    const reproduceVersiones = () => {
+    const reproduceVersiones = (voluntario = false) => {
       termina();
-      if (preferencia.matches || quieto() || !lista.animate) return;
+      if ((!voluntario && preferencia.matches) || quieto() || !lista.animate) return;
       ventana.scrollTop = 0;
       ver.classList.add("ver-broma");
       const distancia = Math.max(0, lista.scrollHeight - ventana.clientHeight);
@@ -852,7 +852,8 @@
     ["wheel", "touchstart", "keydown", "pointerdown"].forEach((evento) => ventana.addEventListener(evento, termina, { passive: true }));
     document.addEventListener("brum:sigue", () => { if (quieto()) termina(); });
     preferencia.addEventListener("change", (e) => { if (e.matches) termina(); });
-    $("[data-ver-repetir]", ver).addEventListener("click", reproduceVersiones);
+    // Con movimiento reducido no se reproduce solo; el botón permite verlo a petición.
+    $("[data-ver-repetir]", ver).addEventListener("click", () => reproduceVersiones(true));
   }
 
   // ---------- Temas HUD de la Tienda: la web se pone sus colores ----------
