@@ -39,7 +39,7 @@ todo en móvil (desde redes), pero la descarga es para el PC con Windows.
 - Comunidad (rankings, ligas, rivales): se anuncia solo como «próximamente» (decisión del usuario, 16/10/2026).
 - Le Mans Ultimate e iRacing no tienen ejercicios.
 - Solo Windows. El instalador no está firmado: Windows SmartScreen avisa al abrirlo.
-- Versión actual: 0.8.1. Cada instalador nuevo lleva número nuevo.
+- Versión actual: 0.8.4. Cada instalador nuevo lleva número nuevo.
 
 ## Brand Commitments
 
